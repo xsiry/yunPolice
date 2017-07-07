@@ -6,7 +6,7 @@ define(function(require, exports, module) {
       this._main();
     },
     _main: function() {
-      loadURL('../apps/notice.html');
+      loadURL('../apps/news.html');
     },
     _bindUI: function() {
 

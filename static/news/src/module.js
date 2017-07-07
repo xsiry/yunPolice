@@ -205,6 +205,7 @@ define(function(require, exports, module) {
     });
   }
 
+  // 顶部图片轮播
   function loopImages() {
     $(".main_visual").hover(function() {
       $("#btn_prev,#btn_next").fadeIn()
