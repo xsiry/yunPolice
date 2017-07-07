@@ -1,4 +1,67 @@
 <link rel="stylesheet" type="text/css" href="../static/notice/style.css">
+<div class="main_visual">
+	<div class="flicking_con">
+		<a href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
+	</div>
+	<div class="main_image">
+		<ul>
+			<li>
+				<a href="javascript:void(0);">
+					<span>
+						<img src="../static/images/img_main_1.jpg">
+						<div class="img_title">
+							<p>李克强谈投融资体制改革：“娟娟溪流也能汇成大海”（资料图）</p>
+						</div>
+					</span>
+			</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);">
+					<span>
+						<img src="../static/images/img_main_2.jpg">
+						<div class="img_title">
+							<p>李克强谈投融资体制改革：“娟娟溪流也能汇成大海”（资料图）</p>
+						</div>
+					</span>
+				</a>
+			</li><li>
+				<a href="javascript:void(0);">
+					<span>
+						<img src="../static/images/img_main_3.jpg">
+						<div class="img_title">
+							<p>李克强谈投融资体制改革：“娟娟溪流也能汇成大海”（资料图）</p>
+						</div>
+					</span>
+				</a>
+			</li><li>
+				<a href="javascript:void(0);">
+					<span>
+						<img src="../static/images/img_main_4.jpg">
+						<div class="img_title">
+							<p>李克强谈投融资体制改革：“娟娟溪流也能汇成大海”（资料图）</p>
+						</div>
+					</span>
+				</a>
+			</li><li>
+				<a href="javascript:void(0);">
+					<span>
+						<img src="../static/images/img_main_5.jpg">
+						<div class="img_title">
+							<p>李克强谈投融资体制改革：“娟娟溪流也能汇成大海”（资料图）</p>
+						</div>
+					</span>
+				</a>
+			</li>
+		</ul>
+		<a href="javascript:;" id="btn_prev"></a>
+		<a href="javascript:;" id="btn_next"></a>
+	</div>
+</div>
+
 <article class="notice_content">
   <section class="notice_content_panel" style="display:block">
   </section>
@@ -8,4 +71,63 @@
 $(document).ready(function() {
   seajs.use('../static/notice/src/main');
 })
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$(".main_visual").hover(function(){
+		$("#btn_prev,#btn_next").fadeIn()
+	},function(){
+		$("#btn_prev,#btn_next").fadeOut()
+	});
+
+	$dragBln = false;
+
+	$(".main_image").touchSlider({
+		flexible : true,
+		speed : 200,
+		btn_prev : $("#btn_prev"),
+		btn_next : $("#btn_next"),
+		paging : $(".flicking_con a"),
+		counter : function (e){
+			$(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+		}
+	});
+
+	$(".main_image").bind("mousedown", function() {
+		$dragBln = false;
+	});
+
+	$(".main_image").bind("dragstart", function() {
+		$dragBln = true;
+	});
+
+	$(".main_image a").click(function(){
+		if($dragBln) {
+			return false;
+		}
+	});
+
+	timer = setInterval(function(){
+		$("#btn_next").click();
+	}, 5000);
+
+	$(".main_visual").hover(function(){
+		clearInterval(timer);
+	},function(){
+		timer = setInterval(function(){
+			$("#btn_next").click();
+		},5000);
+	});
+
+	$(".main_image").bind("touchstart",function(){
+		clearInterval(timer);
+	}).bind("touchend", function(){
+		timer = setInterval(function(){
+			$("#btn_next").click();
+		}, 5000);
+	});
+
+});
 </script>
