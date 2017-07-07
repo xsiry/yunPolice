@@ -18,13 +18,21 @@ div.flicking_con a.on{background-color: #FFF}
 /*#btn_prev{background:url(../images/hover_left.png) no-repeat left top;left:100px;}
 #btn_next{background:url(../images/hover_right.png) no-repeat right top;right:100px;}*/
 
+
 /*新闻列表*/
 section {
   display:block;
   padding:0 8px;
 }
 
-section>div {
+section a,
+section a:hover,
+section a:focus {
+  color: #1f1d20;
+  text-decoration: none;
+}
+
+section>div>a {
   position: relative;
   margin: 8px 0;
   background-color: #FFF;
@@ -34,37 +42,41 @@ section>div {
   display: box;
 }
 
-section>div>div {
+section>div>a>div {
   padding: 0 !important;
   height: 100%;
 }
 
-section>div>div:first-child {
+section>div>a>div:first-child {
   display: none;
   -moz-box-flex: 2;
   -webkit-box-flex: 2;
   box-flex: 2;
 }
 
-section>div>div:first-child .show {
+section>div>a>div:first-child .show {
   display: block;
 }
 
-section>div>div:last-child {
+section>div>a>div:last-child {
   -moz-box-flex: 1;
   -webkit-box-flex: 1;
   box-flex: 1;
 }
 
-section>div>div p {
+section>div>a>div p {
   padding: 5px 10px;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-section>div>div span {
+section>div>a>div>span {
   position: absolute;
   bottom: 0;
   color: #a9a9a9;
   padding: 5px 10px;
+}
+
+section>div>a>div>span>span {
+  color: #428ca4;
 }
