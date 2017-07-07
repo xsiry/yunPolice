@@ -1,154 +1,3 @@
-.content-block> h3 {
-  font-weight: 500;
-}
-
-.icon_lg_text {
-  height: 16px;
-  width: 8rem;
-  display: block;
-  margin: 0 auto 3px;
-  overflow: hidden;
-}
-
-.svg_icon_text {
-  color: #5ac1f8;
-  line-height: 25px;
-}
-
-.msg_details_btn {
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.detail_panel {
-  margin: 0 auto;
-  margin-top: 12px;
-  width: 95%;
-  overflow-x: hidden;
-  overflow-y: visible;
-  display: none;
-  border-radius: 5px;
-}
-
-.msg_setting {
-  position: fixed;
-  right: 0;
-  z-index: 5;
-  margin: 10px 100px;
-}
-
-.tools_div {
-  margin-top: 0.3rem;
-  transition: transform 0.5s;
-  transform: translate(115px, 0px);
-  position: fixed;
-  background-color: #1d242a;
-  opacity: 0.9;
-  line-height: 16px;
-  font-size: 16px;
-  color: #fff;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  right: 0;
-  top: 0;
-  padding: 12px 9px 12px 6px;
-}
-
-.read_all {
-  border: 1px solid;
-  border-radius: 0.3rem;
-  padding: 0rem 0.2rem;
-}
-
-a.read_all {
-  color: #FFF;
-  font-size: 16px;
-}
-
-a.read_all:active {
-  color: #9d9d9d;
-}
-
-
-/*右箭头*/
-
-.right {
-  margin-top: -2px;
-  margin-left: 3px;
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  left: 0;
-}
-
-.right-arrow1,
-.right-arrow2 {
-  width: 0;
-  height: 0;
-  display: block;
-  position: absolute;
-  left: 0;
-  border-top: 10px transparent dashed;
-  border-right: 10px transparent dashed;
-  border-bottom: 10px transparent dashed;
-  border-left: 10px white solid;
-  overflow: hidden;
-}
-
-.right-arrow1 {
-  left: 1px;
-  /*重要*/
-  border-left: 10px #fff solid;
-}
-
-.right-arrow2 {
-  border-left: 10px white solid;
-}
-
-
-/*左箭头*/
-
-.left {
-  margin-top: -2px;
-  margin-left: -8px;
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  left: 0;
-}
-
-.left-arrow1,
-.left-arrow2 {
-  width: 0;
-  height: 0;
-  display: block;
-  position: absolute;
-  left: 0;
-  border-top: 10px transparent dashed;
-  border-left: 10px transparent dashed;
-  border-bottom: 10px transparent dashed;
-  border-right: 10px white solid;
-  overflow: hidden;
-}
-
-.left-arrow1 {
-  border-right: 10px #fff solid;
-}
-
-.left-arrow2 {
-  left: 1px;
-  /*重要*/
-  border-right: 10px white solid;
-}
-
-
 /*轮播图片*/
 *{margin:0;padding:0;list-style:none;border:0;}
 
@@ -168,3 +17,54 @@ div.flicking_con a.on{background-color: #FFF}
 #btn_prev,#btn_next{z-index:-1;position:absolute;display:none;width:73px!important;height:74px!important;top:50%;margin-top:-37px;display:none;}
 /*#btn_prev{background:url(../images/hover_left.png) no-repeat left top;left:100px;}
 #btn_next{background:url(../images/hover_right.png) no-repeat right top;right:100px;}*/
+
+/*新闻列表*/
+section {
+  display:block;
+  padding:0 8px;
+}
+
+section>div {
+  position: relative;
+  margin: 8px 0;
+  background-color: #FFF;
+  height: 100px;
+  display: -moz-box;
+  display: -webkit-box;
+  display: box;
+}
+
+section>div>div {
+  padding: 0 !important;
+  height: 100%;
+}
+
+section>div>div:first-child {
+  display: none;
+  -moz-box-flex: 2;
+  -webkit-box-flex: 2;
+  box-flex: 2;
+}
+
+section>div>div:first-child .show {
+  display: block;
+}
+
+section>div>div:last-child {
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
+}
+
+section>div>div p {
+  padding: 5px 10px;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+section>div>div span {
+  position: absolute;
+  bottom: 0;
+  color: #a9a9a9;
+  padding: 5px 10px;
+}

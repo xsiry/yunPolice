@@ -22,7 +22,7 @@ define(function(require, exports, module) {
       loopImages();
     },
     _loadContent: function() {
-      load();
+      // load();
     }
   }
 
