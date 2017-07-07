@@ -9,7 +9,16 @@ define(function(require, exports, module) {
       loadURL('../apps/news.html');
     },
     _bindUI: function() {
-
+      $.root_.off('click', '.new_detail').on('click', '.new_detail', function(e) {
+        loadURL('../apps/news_detail.html');
+        e.preventDefault();
+        rowobj = null;
+      })
+      $.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(e) {
+        loadURL('../apps/news.html');
+        e.preventDefault();
+        rowobj = null;
+      })
     }
   };
 

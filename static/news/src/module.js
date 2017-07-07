@@ -7,16 +7,6 @@ define(function(require, exports, module) {
       this._loadContent();
     },
     _bindUI: function() {
-      $.root_.off('click', '.msg_details_btn').on('click', '.msg_details_btn', function(actionobj) {
-        var rowobj = $(this);
-        var infoid = rowobj.data("infoid");
-        actionobj.preventDefault();
-        rowobj = null;
-      })
-      $.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(actionobj) {
-        actionobj.preventDefault();
-        rowobj = null;
-      })
     },
     _loopImages: function() {
       loopImages();
@@ -105,6 +95,7 @@ define(function(require, exports, module) {
 
   // 顶部图片轮播
   function loopImages() {
+    clearInterval(timer);
     $(".main_visual").hover(function() {
       $("#btn_prev,#btn_next").fadeIn()
     }, function() {
@@ -181,5 +172,4 @@ define(function(require, exports, module) {
     var now = [year, p(month), p(date)].join('-') + " " + [p(h), p(m), p(s)].join(':');
     return now;
   }
-
 })
