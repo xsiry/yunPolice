@@ -1,63 +1,63 @@
-<link rel="stylesheet" href="../static/css/weui.min.css" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-4"
-      data-genuitec-path="/weChat/WebRoot/apps/message.html"/>
-<link rel="stylesheet" type="text/css" href="../static/message/style.css">
+<link rel="stylesheet" type="text/css" href="../static/consulting/style.css">
 
-<div class="msg_setting img-circle">
-    <div class="tools_div">
-        <div class="weui-cells weui-cells_form">
-            <div class="weui-cell weui-cell_switch">
-                <div class="weui-cell__bd">
-                    <div class="arrow-left arrow-box">
-                        <a class="left_btn" href="javascript:void(0);">
-                            <b class="left">
-                                <i class="left-arrow1"></i>
-                                <i class="left-arrow2"></i>
-                            </b>
-                        </a>
-                    </div>
-                    <div class="arrow-right arrow-box" style="display:none;">
-                        <a class="right_btn" href="javascript:void(0);">
-                            <b class="right">
-                                <i class="right-arrow1"></i>
-                                <i class="right-arrow2"></i>
-                            </b>
-                        </a>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;留言审核模式
-                </div>
-                <div class="weui-cell__ft">
-                    <label for="switchP" class="weui-switch-cp">
-                        <input id="switchP" class="weui-switch-cp__input msg_checkout" type="checkbox">
-                        <div class="weui-switch-cp__box"></div>
-                    </label>
-                </div>
+<div class="x-menus">
+    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#ywzx" role="tab" id="ywzx-tab" data-type="ywzx" data-toggle="tab" aria-controls="ywzx" aria-expanded="true">
+                业务咨询</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="javascript:void(0);" role="tab" id="bsfw-tab" data-type="bsfw" data-toggle="tab" aria-controls="bsfw" aria-expanded="false">
+                办事指南</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="javascript:void(0);" role="tab" id="flfg-tab" data-type="flfg" data-toggle="tab" aria-controls="flfg" aria-expanded="false">
+                法律法规</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="ywzx" aria-labelledby="ywzx-tab">
+                <article class="list_content">
+                    <section class="list_content_panel" style="display:block">
+                    </section>
+                </article>
+                <input type="hidden" name="pageNo" class="page_no" value="1"/>
             </div>
         </div>
     </div>
 </div>
-<article class="msg_content">
-    <section class="msg_content_panel" style="display:block">
-    </section>
-</article>
-<input type="hidden" name="pageNo" class="page_no" value="1"/>
-<div class="reply_content">
-    <div class="reply_title">
-        回复：<span class="reply_number_msg"></span> 号机玩家 <span class="msgid_msg"
-                                                             style="display:none;"></span>
+<div class="cons_detail">
+
+</div>
+<div class="cons_content">
+    <div class="row userinfo">
+        <div class="col-xs-6">
+            <pre id="editTitle" contenteditable-directive="" mm-paste=""
+             contenteditable="true" class="flex flex_username" data-placeholder="姓名"></pre>
+        </div>
+        <div class="col-xs-6">
+            <pre id="editTitle" contenteditable-directive="" mm-paste=""
+             contenteditable="true" class="flex flex_phone" data-placeholder="电话"></pre>
+        </div>
     </div>
-    <div class="reply_msg pull-left">
-		<pre id="editArea" contenteditable-directive="" mm-paste=""
-             contenteditable="true" class="flex"></pre>
+    <div class="cons_title">
+        <pre id="editTitle" contenteditable-directive="" mm-paste=""
+             contenteditable="true" class="flex flex_title" data-placeholder="咨询问题"></pre>
     </div>
-    <div class="pull-right reply_msg_btn">
-        <button type="button" class="btn btn-info reply_cancel_btn">取消</button>
-        <button type="button" class="btn btn-success reply_commit_btn">回复</button>
+    <div class="cons_msg pull-left">
+		<pre id="editContent" contenteditable-directive="" mm-paste=""
+             contenteditable="true" class="flex flex_content" data-placeholder="详细情况"></pre>
+    </div>
+    <div class="pull-right cons_msg_btn">
+        <!-- <button type="button" class="btn btn-info cons_cancel_btn">取消</button> -->
+        <button type="button" class="btn btn-success cons_commit_btn">提交咨询</button>
     </div>
 </div>
 <script type="text/javascript" src="../sea-modules/dropload/dropload.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        seajs.use('../static/message/src/main');
+        seajs.use('../static/consulting/src/main');
     });
 </script>
 

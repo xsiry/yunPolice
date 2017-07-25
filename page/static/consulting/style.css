@@ -1,0 +1,166 @@
+html,
+body {
+	font-size: 1rem;
+	background-color: #FFF;
+}
+
+.x-menus {
+	margin-top: 10px;
+}
+
+.x-menus>div:first-child {
+	padding: 10px;
+}
+
+.list_content {
+	padding-bottom: 160px;
+}
+
+.content-bottom span a {
+	color: #4E90FF;
+}
+
+.content-block {
+	padding: 10px;
+	border-bottom: 1px solid #d8d8d8;
+}
+
+a.x-row-blocks {
+	color: #525e71;
+  text-decoration: none;
+}
+
+a.x-row-blocks>div:first-child>div:first-child>span {
+  font-size: 1.2rem;
+}
+
+.col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.cons_content {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background: rgba(17, 17, 17, 0.8);
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.cons_content .userinfo {
+	margin-bottom: 3px;
+}
+
+.cons_content .userinfo .col-xs-6 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.cons_content .userinfo .col-xs-6>pre {
+  max-height: 40px !important;
+  min-height: 40px !important;
+  height: 40px;
+}
+
+.cons_content .userinfo .col-xs-6:first-child {
+  padding-right: 1.5px;
+  padding-left: 15px;
+}
+
+.cons_content .userinfo .col-xs-6:last-child {
+  padding-right: 15px;
+  padding-left: 1.5px;
+}
+
+pre {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	white-space: pre-wrap;
+	word-break: normal;
+}
+
+pre:empty:before{
+    content: attr(data-placeholder);
+    color:#bbb;
+}
+pre:focus:before{
+    content:none;
+}
+
+.flex {
+	background: #fff;
+	border: none;
+	border-radius: 4px;
+	max-height: 132px;
+	min-height: 66px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	outline: none;
+	font-size: 16px;
+	line-height: 22px;
+}
+
+.flex_title {
+	max-height: 55px;
+	min-height: 40px;
+}
+
+.cons_msg_btn button {
+	margin-right: 6px;
+}
+
+.cons_title {
+	margin-bottom: 3px;
+	background: rgba(17, 17, 17, 0);
+	margin-right: 10px;
+	font-size: 18px;
+	color: #fff;
+	width: 80%;
+	padding: 0px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.cons_msg {
+	width: 80%;
+	opacity: 0.95;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
+		ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out
+		.15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.cons_cancel_btn {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	padding: 7px 14px;
+	margin-bottom: 80px;
+}
+
+.cons_commit_btn {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	padding: 12px 8px;
+	margin-bottom: 7px;
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+	opacity: initial;
+}
