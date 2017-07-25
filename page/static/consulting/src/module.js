@@ -26,6 +26,12 @@ define(function(require, exports, module) {
 			$.root_.off('click', '.cons_cancel_btn').on('click', '.cons_cancel_btn', function(e) {
 				$('.reply_content').hide();
 			})
+			$.root_.off('click', '.x-row-blocks').on('click', '.x-row-blocks', function(e) {
+				$('.cons_detail').show();
+			})
+			$.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(e) {
+				$('.cons_detail').hide();
+			})
 		},
 		_loadContent : function() {
 			load();

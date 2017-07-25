@@ -1,11 +1,6 @@
-html {
-	overflow: hidden;
-}
-
 html,
 body {
 	font-size: 1rem;
-	overflow-x: hidden;
 	background-color: #FFF;
 }
 
@@ -17,19 +12,8 @@ body {
 	padding: 10px;
 }
 
-.x-list-block {
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
 .list_content {
-	overflow-x: hidden;
 	padding-bottom: 160px;
-	overflow-y: auto;
-}
-
-.list_content_panel {
-	overflow-x: hidden;
 }
 
 .content-bottom span a {
@@ -187,6 +171,18 @@ pre:focus:before{
   height: 100%;
   z-index: 200;
   background-color: #FFF;
+}
+
+.cons_detail .cons_detail_content {
+	padding: 50px 10px 10px 10px;
+}
+
+.cons_detail .row {
+	margin: 0;
+}
+
+.cons_detail .col-xs-12,.cons_detail .col-xs-6 {
+	padding: 0;
 }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
