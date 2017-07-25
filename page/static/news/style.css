@@ -1,0 +1,82 @@
+/*轮播图片*/
+*{margin:0;padding:0;list-style:none;border:0;}
+
+/* main_image */
+.main_visual{overflow:hidden;position:relative;display:none;}
+.main_image{padding-bottom:56%;overflow:hidden;position:relative;}
+.main_image ul{width:9999px;overflow:hidden;position:absolute;top:0;left:0}
+.main_image li{float:left;width:100%}
+.main_image li span{display:block;width:100%; position:relative; padding-bottom:56%; height:0}
+.main_image li a{display:block;width:100%;height:422px}
+.main_image li img {display:block;position: absolute;width: 100%;height: 100%}
+.main_image li span .img_title {display:block;position: absolute;bottom:0;background-color: rgba(0, 0, 0, 0.6);width:100%;height:0;padding-bottom: 14%}
+.main_image li span .img_title p {color: #fff;font-size: 1.6rem;line-height: 2.5rem;padding:5px}
+div.flicking_con{position: absolute;bottom: 3%;right: 3%;z-index: 999}
+div.flicking_con a{float: left;width: 5px;height: 5px;margin: 0 0 0 5px;padding: 0;background-color: #737373;display: block;text-indent: -1000px;}
+div.flicking_con a.on{background-color: #FFF}
+#btn_prev,#btn_next{z-index:-1;position:absolute;display:none;width:73px!important;height:74px!important;top:50%;margin-top:-37px;display:none;}
+/*#btn_prev{background:url(../images/hover_left.png) no-repeat left top;left:100px;}
+#btn_next{background:url(../images/hover_right.png) no-repeat right top;right:100px;}*/
+
+
+/*新闻列表*/
+section {
+  display:block;
+  padding:0 8px;
+}
+
+section a,
+section a:hover,
+section a:focus {
+  color: #1f1d20;
+  text-decoration: none;
+}
+
+section>div>a {
+  position: relative;
+  margin: 8px 0;
+  background-color: #FFF;
+  height: 100px;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+section>div>a>div {
+  padding: 0 !important;
+  height: 100%;
+}
+
+section>div>a>div:first-child {
+  display: none;
+  -moz-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+section>div>a>div:first-child .show {
+  display: block;
+}
+
+section>div>a>div:last-child {
+  -moz-flex: 1.6;
+  -webkit-flex: 1.6;
+  flex: 1.6;
+}
+
+section>div>a>div p {
+  padding: 5px 10px;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+section>div>a>div>span {
+  position: absolute;
+  bottom: 0;
+  color: #a9a9a9;
+  padding: 5px 10px;
+}
+
+section>div>a>div>span>span {
+  color: #428ca4;
+}
