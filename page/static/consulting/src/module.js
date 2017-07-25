@@ -27,9 +27,16 @@ define(function(require, exports, module) {
 				$('.reply_content').hide();
 			})
 			$.root_.off('click', '.x-row-blocks').on('click', '.x-row-blocks', function(e) {
+				// $('html').css('overflow-y', 'hidden');
+				// $('body').css('overflow-y', 'hidden');
+				var id = $(e.currentTarget).data("id");
+				getMsg(id);
 				$('.cons_detail').show();
 			})
 			$.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(e) {
+				// $('html').css('overflow-y', 'auto');
+				// $('body').css('overflow-y', 'auto');
+				$('body,html').animate({ scrollTop: 0 }, 0);
 				$('.cons_detail').hide();
 			})
 		},
@@ -143,6 +150,34 @@ define(function(require, exports, module) {
 			success : function(data) {
 				if (data) {
 					window.location.reload();
+				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
+
+	function getMsg(id) {
+		$.ajax({
+			type : 'GET',
+			contentType : 'application/json',
+			url : domain + 'gms_consulting/get.do',
+			dataType : 'json',
+			data : {
+				id : id
+			},
+			success : function(data) {
+				if (data.success) {
+					var obj = data.data;
+					var statusKey = {0: "已提交", 1: "已受理", 2: "已回复"}
+					$('.detail_title span').text(obj.title);
+					$('.detail_status span').text(statusKey[obj.status]);
+					$('.detail_content span').text(obj.content);
+					$('.detail_username span').text(obj.username);
+					$('.detail_createdat span').text(obj.createdat ? obj.createdat.substring(0,10) : '');
+					$('.detail_replycontent span').text(obj.replycontent);
+					$('.detail_repliedat span').text(obj.repliedat ? obj.repliedat.substring(0,10) : '');
 				}
 			},
 			error : function(e) {

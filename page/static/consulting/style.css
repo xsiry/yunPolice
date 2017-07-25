@@ -119,7 +119,6 @@ pre:focus:before{
 	margin-bottom: 3px;
 	background: rgba(17, 17, 17, 0);
 	margin-right: 10px;
-	font-size: 18px;
 	color: #fff;
 	width: 80%;
 	padding: 0px;
@@ -175,10 +174,17 @@ pre:focus:before{
 
 .cons_detail .cons_detail_content {
 	padding: 50px 10px 10px 10px;
+	font-size: 1.2rem;
 }
 
 .cons_detail .row {
 	margin: 0;
+	border: 1px solid #2f6d9b;
+	border-bottom: 0;
+}
+
+.cons_detail .row:last-child {
+	border-bottom: 1px solid #2f6d9b;
 }
 
 .cons_detail .col-xs-12,.cons_detail .col-xs-6 {
