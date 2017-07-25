@@ -1,6 +1,11 @@
+html {
+	overflow: hidden;
+}
+
 html,
 body {
 	font-size: 1rem;
+	overflow-x: hidden;
 	background-color: #FFF;
 }
 
@@ -12,8 +17,19 @@ body {
 	padding: 10px;
 }
 
+.x-list-block {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
 .list_content {
+	overflow-x: hidden;
 	padding-bottom: 160px;
+	overflow-y: auto;
+}
+
+.list_content_panel {
+	overflow-x: hidden;
 }
 
 .content-bottom span a {
@@ -47,6 +63,7 @@ a.x-row-blocks>div:first-child>div:first-child>span {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	padding: 5px;
+	z-index: 100;
 }
 
 .cons_content .userinfo {
@@ -159,6 +176,17 @@ pre:focus:before{
 	bottom: 0;
 	padding: 12px 8px;
 	margin-bottom: 7px;
+}
+
+.cons_detail {
+	display: none;
+	position: fixed;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  background-color: #FFF;
 }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
