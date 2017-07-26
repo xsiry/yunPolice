@@ -33,6 +33,7 @@ define(function(require, exports, module) {
 					document.body.scrollTop = scrollTop;//赋值给滚动条的位置
 				}
 				getMsg(id);
+				pageviewsCount(id);
 				$('.cons_detail').show();
 			})
 			$.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(e) {
@@ -179,9 +180,28 @@ define(function(require, exports, module) {
 					$('.detail_content span').text(obj.content);
 					$('.detail_username span').text(obj.username);
 					$('.detail_createdat span').text(obj.createdat ? obj.createdat.substring(0,10) : '');
-					$('.detail_replycontent span').text(obj.replycontent);
-					$('.detail_repliedat span').text(obj.repliedat ? obj.repliedat.substring(0,10) : '');
+					$('.detail_replycontent span').text(obj.replycontent ? ('反馈：' + obj.replycontent) : '');
+					$('.detail_repliedat span').text(obj.repliedat ? ('回复：' + obj.repliedat.substring(0,10)) : '');
 				}
+			},
+			error : function(e) {
+				console.log(e);
+			}
+		});
+	}
+
+	// 统计浏览量
+	function pageviewsCount(id) {
+		$.ajax({
+			type : 'GET',
+			contentType : 'application/json',
+			url : domain + 'gms_consulting/pvCount.do',
+			dataType : 'json',
+			data : {
+				id : id
+			},
+			success : function(data) {
+				if (data.success) {}
 			},
 			error : function(e) {
 				console.log(e);
