@@ -177,10 +177,10 @@ define(function(require, exports, module) {
 					var statusKey = {0: "已提交", 1: "已受理", 2: "已回复"}
 					$('.detail_title span').text(obj.title);
 					$('.detail_status span').text(statusKey[obj.status]);
-					$('.detail_content span').text(obj.content);
+					$('.detail_content').text(obj.content);
 					$('.detail_username span').text(obj.username);
 					$('.detail_createdat span').text(obj.createdat ? obj.createdat.substring(0,10) : '');
-					$('.detail_replycontent span').text(obj.replycontent ? ('反馈：' + obj.replycontent) : '');
+					$('.detail_replycontent').text(obj.replycontent ? ('反馈：' + obj.replycontent) : '');
 					$('.detail_repliedat span').text(obj.repliedat ? ('回复：' + obj.repliedat.substring(0,10)) : '');
 				}
 			},
