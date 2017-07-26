@@ -183,6 +183,11 @@ pre:focus:before{
 	border-bottom: 0;
 }
 
+.cons_detail .row:nth-child(3) {
+	border-bottom: 1px solid #2f6d9b;
+	margin-bottom: 10px;
+}
+
 .cons_detail .row:last-child {
 	border-bottom: 1px solid #2f6d9b;
 }

@@ -27,16 +27,19 @@ define(function(require, exports, module) {
 				$('.reply_content').hide();
 			})
 			$.root_.off('click', '.x-row-blocks').on('click', '.x-row-blocks', function(e) {
-				// $('html').css('overflow-y', 'hidden');
-				// $('body').css('overflow-y', 'hidden');
 				var id = $(e.currentTarget).data("id");
+				var scrollTop = document.body.scrollTop;//保存点击前滚动条的位置
+				window.onscroll=function(){
+					document.body.scrollTop = scrollTop;//赋值给滚动条的位置
+				}
 				getMsg(id);
 				$('.cons_detail').show();
 			})
 			$.root_.off('click', '.go_back_btn').on('click', '.go_back_btn', function(e) {
-				// $('html').css('overflow-y', 'auto');
-				// $('body').css('overflow-y', 'auto');
-				$('body,html').animate({ scrollTop: 0 }, 0);
+				window.onscroll=function(){
+					document.body.scrollTop = document.body.scrollTop; //关闭后清除保存位置的值
+				}
+				// $('body,html').animate({ scrollTop: 0 }, 0);
 				$('.cons_detail').hide();
 			})
 		},
