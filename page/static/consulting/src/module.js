@@ -99,9 +99,10 @@ define(function(require, exports, module) {
 								return;
 							}
 							var result = '';
-							var statusKey = {0: "已提交", 1: "已受理", 2: "已回复"}
+							var statusKey = {0: "已提交", 1: "已屏蔽", 2: "已回复"}
 							for (var i = 0; i < list.length; i++) {
 								var obj = list[i];
+								if (obj.status==1) continue;
 								result
 										+= '<div class="content-block">'
 										+  '<a href="javascript:void(0);" data-id='+ obj.id +' class="x-row-blocks">'

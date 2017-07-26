@@ -1,0 +1,38 @@
+pre {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	white-space: pre-wrap;
+	word-break: normal;
+}
+
+pre:empty:before{
+    content: attr(data-placeholder);
+    color:#bbb;
+}
+pre:focus:before{
+    content:none;
+}
+
+.flex {
+	background: #fff;
+	border: 1px solid #d8d8d8;
+  border-radius: 5px;
+	max-height: 132px;
+	min-height: 66px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	outline: none;
+	font-size: 1.3rem;
+	line-height: 22px;
+}
+
+.consulting_content {
+  margin: 10px 0;
+  border: 1px solid #c6e3fd;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: aliceblue;
+}
