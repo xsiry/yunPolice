@@ -1,15 +1,24 @@
 define([{
   display: '标题',
   name: 'title',
-  minWidth: 100,
+  minWidth: 50,
   isSort: false,
   width: '20%'
 }, {
   display: '申请人',
   name: 'username',
-  minWidth: 100,
+  minWidth: 80,
   isSort: false,
-  width: '15%'
+  width: '10%'
+}, {
+  display: '性别',
+  name: 'sex',
+  minWidth: 50,
+  isSort: false,
+  width: '5%',
+  render: function(rowdata, rowindex, value) {
+    return value==0? '男': '女';
+  }
 }, {
   display: '申请人电话',
   name: 'phone',
@@ -19,11 +28,14 @@ define([{
 }, {
   display: '申请时间',
   name: 'createdat',
-  tyep: 'date',
+  type: "date",
   format: 'yyyy-mm-dd HH:mm:ss',
-  minWidth: 100,
+  minWidth: 150,
   isSort: false,
-  width: '10%'
+  width: '10%',
+  render: function(rowdata, rowindex, value) {
+    return value? value.substring(0, value.length-2): '';
+  }
 }, {
   display: '浏览量',
   name: 'pageviews',
@@ -35,7 +47,18 @@ define([{
   name: 'replyperson',
   minWidth: 60,
   isSort: false,
-  width: '15%'
+  width: '10%'
+}, {
+  display: '回复时间',
+  name: 'repliedat',
+  minWidth: 150,
+  type: "date",
+  format: 'yyyy-mm-dd HH:mm:ss',
+  isSort: false,
+  width: '10%',
+  render: function(rowdata, rowindex, value) {
+    return value? value.substring(0, value.length-2): '';
+  }
 }, {
     display: '状态',
     name: 'status',
@@ -48,8 +71,8 @@ define([{
 }, {
   display: '操作',
   isSort: false,
-  minWidth: 200,
-  width: '20%',
+  minWidth: 100,
+  width: '15%',
   name: 'Apply',
   render: function(rowdata, rowindex, value) {
     var h = "";

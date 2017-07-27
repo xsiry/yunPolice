@@ -55,15 +55,30 @@
         </div>
     </div>
 </div>
+<div class="cons_send">
+    <a class="cons_send_btn" href="javascript:void(0);">
+      <svg class="svg_icon" viewBox="0 0 1024 1024">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#consulting_svg"></use>
+      </svg>
+    </a>
+</div>
 <div class="cons_content">
     <div class="row userinfo">
-        <div class="col-xs-6">
+        <div class="col-xs-4 x-col-username">
             <pre id="editTitle" contenteditable-directive="" mm-paste=""
              contenteditable="true" class="flex flex_username" data-placeholder="姓名"></pre>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-4 x-col-phone">
             <pre id="editTitle" contenteditable-directive="" mm-paste=""
              contenteditable="true" class="flex flex_phone" data-placeholder="电话"></pre>
+        </div>
+        <div class="col-xs-4 x-col-radio text-center">
+            <label class="radio-inline x-radio">
+              <input type="radio" name="sex" value="0" checked>男
+            </label>
+            <label class="radio-inline x-radio">
+              <input type="radio" name="sex" value="1">女
+            </label>
         </div>
     </div>
     <div class="cons_title">
@@ -75,7 +90,7 @@
              contenteditable="true" class="flex flex_content" data-placeholder="详细情况"></pre>
     </div>
     <div class="pull-right cons_msg_btn">
-        <!-- <button type="button" class="btn btn-info cons_cancel_btn">取消</button> -->
+        <button type="button" class="btn btn-info cons_cancel_btn">取消</button>
         <button type="button" class="btn btn-success cons_commit_btn">提交咨询</button>
     </div>
 </div>

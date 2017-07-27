@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	$.root_ = $('body');
-	var domain = "/didiweb/";
+	var domain = "/";
 	var auditMessage = false, dropLoad;
 	module.exports = {
 		init : function() {
@@ -42,6 +42,14 @@ define(function(require, exports, module) {
 				}
 				// $('body,html').animate({ scrollTop: 0 }, 0);
 				$('.cons_detail').hide();
+			})
+			$.root_.off('click', '.cons_send_btn').on('click', '.cons_send_btn', function(e) {
+				$('.cons_send').hide();
+				$('.cons_content').show();
+			})
+			$.root_.off('click', '.cons_cancel_btn').on('click', '.cons_cancel_btn', function(e) {
+				$('.cons_content').hide();
+				$('.cons_send').show();
 			})
 		},
 		_loadContent : function() {
@@ -110,7 +118,7 @@ define(function(require, exports, module) {
 										+  '<div class="col-xs-6 text-left"><span>' + obj.title + '</span></div>'
 										+  '<div class="col-xs-6 text-right"><span>浏览量：<span class="x-cons-pv">' + obj.pageviews + '</span></span></div>'
 										+  '</div><div class="row">'
-										+  '<div class="col-xs-12 text-left"><span>申请人: ' + obj.username + '</span></div>'
+										+  '<div class="col-xs-12 text-left"><span>申请人: ' + obj.username.substring(0, 1) + (obj.sex == 0 ? '先生' : '女士') + '</span></div>'
 										+	'</div><div class="row">'
 										+	'<div class="col-xs-12 text-left"><span>来信：' + (obj.createdat ? obj.createdat.substring(0,10) : '') + '</span></div>'
 										+	'</div><div class="row">'
@@ -137,6 +145,7 @@ define(function(require, exports, module) {
 	function commitMsg() {
 		var username = $('pre.flex_username').text();
 		var phone = $('pre.flex_phone').text();
+		var sex = $('input[name="sex"]:checked').val();
 		var title = $('pre.flex_title').text();
 		var content = $('pre.flex_content').text();
 
@@ -148,6 +157,7 @@ define(function(require, exports, module) {
 			data : JSON.stringify({
 				username : username,
 				phone : phone,
+				sex : sex,
 				title : title,
 				content : content,
 				createdat : toLocaleString('', new Date())
@@ -179,7 +189,7 @@ define(function(require, exports, module) {
 					$('.detail_title span').text(obj.title);
 					$('.detail_status span').text(statusKey[obj.status]);
 					if (obj.content) {$('.detail_content').parent().show(),$('.detail_content').text(obj.content)} else{$('.detail_content').parent().hide()};
-					$('.detail_username span').text(obj.username);
+					$('.detail_username span').text(obj.username.substring(0, 1) + (obj.sex == 0 ? '先生' : '女士'));
 					$('.detail_createdat span').text(obj.createdat ? obj.createdat.substring(0,10) : '');
 					if (obj.replycontent) {$('.detail_replycontent').parent().show(),$('.detail_replycontent').text(obj.replycontent)} else{$('.detail_replycontent').parent().hide()};
 					$('.detail_repliedat span').text(obj.repliedat ? ('回复：' + obj.repliedat.substring(0,10)) : '');

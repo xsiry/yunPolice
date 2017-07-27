@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
+  var domain = "/";
   module.exports = {
 
     init: function() {
@@ -70,7 +71,7 @@ define(function(require, exports, module) {
       onSelectRow: function(rowdata, rowindex) {
         $("#txtrowindex").val(rowindex);
       },
-      url: '/didiweb/gms_consulting/getList.do',
+      url: domain + 'gms_consulting/getList.do',
       method: "get",
       dataAction: 'server',
       usePager: true,
@@ -78,7 +79,7 @@ define(function(require, exports, module) {
       clickToEdit: false,
       width: '100%',
       height: '91%',
-      sortName: 'times',
+      sortName: 'createdat',
       sortOrder: 'DESC'
     });
   };
@@ -112,7 +113,7 @@ define(function(require, exports, module) {
       $.ajax({
         type : 'POST',
         contentType : 'application/json',
-        url : '/didiweb/gms_consulting/update.do',
+        url : domain + 'gms_consulting/update.do',
         data: JSON.stringify({
           id: id,
           status: (status?(reply?2:0):1)
@@ -169,10 +170,11 @@ define(function(require, exports, module) {
           $.ajax({
             type : 'POST',
             contentType : 'application/json',
-            url : '/didiweb/gms_consulting/update.do',
+            url : domain + 'gms_consulting/update.do',
             data: JSON.stringify({
               id: id,
               replycontent: $('.consulting_replycontent pre').text(),
+              repliedat: dateFactory('', new Date(), true),
               status: 2
             }),
             dataType : 'json',
