@@ -3,7 +3,7 @@ define([{
   name: 'title',
   minWidth: 50,
   isSort: false,
-  width: '20%'
+  width: '15%'
 }, {
   display: '申请人',
   name: 'username',
@@ -76,6 +76,7 @@ define([{
   name: 'Apply',
   render: function(rowdata, rowindex, value) {
     var h = "";
+    h += "<button type='button' data-id='" + rowdata.id + "' data-reviewed=" + (rowdata.reviewed==1?true:false) + " data-rowid='" + rowindex + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-primary btn-xs row-btn " + (rowdata.reviewed==1?"disabled":"") + " row_btn_reviewed'>"+ (rowdata.reviewed==0?'审核': '已审核') +"</button> ";
     h += "<button type='button' data-rowid='" + rowindex + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-info btn-xs row-btn row_btn_preview'>"+ (rowdata.replycontent?'修改':'回复') +"</button> ";
     h += "<button type='button' data-reply=" + (rowdata.replycontent?true:false) + " data-status=" + (rowdata.status == 1 ? true:false) + " data-id='" + rowdata.id + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-danger btn-xs row-btn row_btn_hide'>"+(rowdata.status == 1 ? '取消屏蔽':'屏蔽')+"</button> ";
     return h;

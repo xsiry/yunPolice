@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
 	$.root_ = $('body');
-	var domain = "/";
-	var auditMessage = false, dropLoad;
+	var _domain = "/didiweb/";
+	var _tel = getParams('TEL');
+	var auditMessage = false, _dropLoad;
 	module.exports = {
 		init : function() {
 			this._bindUI();
@@ -44,23 +45,56 @@ define(function(require, exports, module) {
 				$('.cons_detail').hide();
 			})
 			$.root_.off('click', '.cons_send_btn').on('click', '.cons_send_btn', function(e) {
+				if ($('.x-qtype').hasClass('x-qtype-top')) {
+					$('.x-qtype').removeClass('x-qtype-top');
+					$('.x-qtype').addClass('x-qtype-down');
+				}else {
+					$('.x-qtype').removeClass('x-qtype-down');
+					$('.x-qtype').addClass('x-qtype-top');
+				}
 				$('.cons_send').hide();
 				$('.cons_content').show();
 			})
 			$.root_.off('click', '.cons_cancel_btn').on('click', '.cons_cancel_btn', function(e) {
+				if ($('.x-qtype').hasClass('x-qtype-down')) {
+					$('.x-qtype').removeClass('x-qtype-down');
+					$('.x-qtype').addClass('x-qtype-top');
+				}else {
+					$('.x-qtype').removeClass('x-qtype-top');
+					$('.x-qtype').addClass('x-qtype-down');
+				}
 				$('.cons_content').hide();
 				$('.cons_send').show();
 			})
+			$.root_.off('click', '.x-qtype-btn').on('click', '.x-qtype-btn', function(e) {
+				if ($('.x-qtype').hasClass('x-qtype-show')) {
+					$('.x-qtype').removeClass('x-qtype-show');
+				}else {
+					$('.x-qtype').addClass('x-qtype-show');
+				}
+			})
+			$.root_.off('change', 'input[name="qtype"]').on('change', 'input[name="qtype"]', function(e) {
+				localStorage.setItem("qtype_status", $(e.currentTarget).is(':checked'));
+				reload();
+			})
 		},
 		_loadContent : function() {
+			$('input[name="qtype"]').prop("checked",localStorage.getItem("qtype_status") == "true");
 			load();
 		}
 	}
 
+	function reload() {
+		$('.list_content').empty().append('<section class="list_content_panel" style="display:block"></section>');
+		$(".page_no").val(1);
+		load();
+	}
+
 	function load() {
+		var qtype = localStorage.getItem("qtype_status");
 		var tabLoadEnd = false;
 		var tabLenght = 0;
-		dropLoad = $('.list_content').dropload({
+		_dropLoad = $('.list_content').dropload({
 			scrollArea: window,
 			domUp : {                                                            // 上方DOM
         domClass   : 'dropload-up',
@@ -79,12 +113,14 @@ define(function(require, exports, module) {
       },
 			loadDownFn: function(me) {
 				$.ajax({
-					url: domain + 'gms_consulting/getList.do',
+					url: _domain + 'gms_consulting/getList.do',
 					dataType: 'json',
 					contentType: 'application/json',
 					data: {
 						page: $(".page_no").val(),
             pagesize: 3,
+            phone: _tel,
+            qtype: qtype,
             sortname: 'createdat',
             sortorder: 'DESC'
 					},
@@ -152,7 +188,7 @@ define(function(require, exports, module) {
 		$.ajax({
 			type : 'POST',
 			contentType : 'application/json',
-			url : domain + 'gms_consulting/save.do',
+			url : _domain + 'gms_consulting/save.do',
 			dataType : 'json',
 			data : JSON.stringify({
 				username : username,
@@ -177,7 +213,7 @@ define(function(require, exports, module) {
 		$.ajax({
 			type : 'GET',
 			contentType : 'application/json',
-			url : domain + 'gms_consulting/get.do',
+			url : _domain + 'gms_consulting/get.do',
 			dataType : 'json',
 			data : {
 				id : id
@@ -206,7 +242,7 @@ define(function(require, exports, module) {
 		$.ajax({
 			type : 'GET',
 			contentType : 'application/json',
-			url : domain + 'gms_consulting/pvCount.do',
+			url : _domain + 'gms_consulting/pvCount.do',
 			dataType : 'json',
 			data : {
 				id : id
@@ -219,6 +255,23 @@ define(function(require, exports, module) {
 			}
 		});
 	}
+
+	// url传参数变化类别
+  function getParams(fndname) {
+    var url = location.search; //一般的查询
+    var query = url.substr(url.indexOf("?") + 1);
+    var pairs = query.split("&"); //在逗号处断开
+    for (var i = 0; i < pairs.length; i++) {
+        var pos = pairs[i].indexOf('='); //查找name=value
+        if (pos == -1)
+            continue; //如果没有找到就跳过
+        var argname = pairs[i].substring(0, pos); //提取name
+        var value = pairs[i].substring(pos + 1); //提取value
+        if (argname == fndname)
+            return value;
+    }
+  }
+
 
 	/* 时间处理函数 参数 毫秒 */
 	function toLocaleString(ms, date) {

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
-  var domain = "/";
+  var domain = "/didiweb/";
   module.exports = {
 
     init: function() {
@@ -57,6 +57,13 @@ define(function(require, exports, module) {
         var reply = $(e.currentTarget).data('reply');
         hideRow(id, name, status, reply);
       })
+      $.root_.on("click", '.row_btn_reviewed', function(e) {
+        var id = $(e.currentTarget).data('id');
+        var name = $(e.currentTarget).data('name');
+        var reviewed = $(e.currentTarget).data('reviewed');
+        reviewedRow(id, name, reviewed);
+      })
+
     }
   };
 
@@ -147,12 +154,66 @@ define(function(require, exports, module) {
       if (dismiss === 'cancel') {
         // swal(
         //   '已取消',
-        //   '新闻《' + name + '》未删除 :)',
+        //   '《' + name + '》未删除 :)',
         //   'error'
         // )
       }
     })
   };
+
+  function reviewedRow(id, title, reviewed) {
+    if (reviewed) return;
+    swal({
+      title: '确定审核?',
+      text: '审核后，咨询《' + title + '》将在客户端展示！',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '确定',
+      cancelButtonText: '取消'
+    }).then(function() {
+      $.ajax({
+        type : 'POST',
+        contentType : 'application/json',
+        url : domain + 'gms_consulting/update.do',
+        data: JSON.stringify({
+          id: id,
+          reviewed: 1
+        }),
+        dataType : 'json',
+        success : function(data) {
+          if (data) {
+            manager.reload();
+            swal(
+              '审核成功:)',
+              '咨询《' + name + '》已通过审核.',
+              'success'
+            )
+          }else{
+            swal(
+              '审核失败!',
+              '未知错误，请联系管理员或查看日志',
+              'error'
+            )
+          }
+        },
+        error : function(e) {
+          swal(
+            '审核失败!',
+            '未知错误，请联系管理员或查看日志',
+            'error'
+          )
+        }
+      });
+    }, function(dismiss) {
+      if (dismiss === 'cancel') {
+        // swal(
+        //   '已取消',
+        //   '《' + name + '》未删除 :)',
+        //   'error'
+        // )
+      }
+    })
+  }
 
   function previewModal(id, title, onshowFun) {
     var modal = BootstrapDialog.show({
