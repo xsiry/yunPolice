@@ -1,12 +1,17 @@
 define(function(require, exports, module) {
 	$.root_ = $('body');
-	var _domain = "/didiweb/";
+	var _domain = "/";
 	var _tel = getParams('TEL');
 	var auditMessage = false, _dropLoad;
 	module.exports = {
 		init : function() {
+			this._bingBtn();
 			this._bindUI();
 			this._loadContent();
+		},
+		_bingBtn : function() {
+			$('.bszn_btn a').prop('href', '../../../business/index.html?page=bszn&TEL='+_tel);
+			$('.flfg_btn a').prop('href', '../../../business/index.html?page=flfg&TEL='+_tel);
 		},
 		_bindUI : function() {
 			$.root_.off('click', '.reply_btn').on('click', '.reply_btn', function(actionobj) {
@@ -91,7 +96,7 @@ define(function(require, exports, module) {
 	}
 
 	function load() {
-		var qtype = localStorage.getItem("qtype_status");
+		var qtype = localStorage.getItem("qtype_status") == "true";
 		var tabLoadEnd = false;
 		var tabLenght = 0;
 		_dropLoad = $('.list_content').dropload({

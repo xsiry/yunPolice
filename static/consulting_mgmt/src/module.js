@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
-  var domain = "/didiweb/";
+  var domain = "/";
   module.exports = {
 
     init: function() {
@@ -185,7 +185,7 @@ define(function(require, exports, module) {
             manager.reload();
             swal(
               '审核成功:)',
-              '咨询《' + name + '》已通过审核.',
+              '咨询《' + title + '》已通过审核.',
               'success'
             )
           }else{
