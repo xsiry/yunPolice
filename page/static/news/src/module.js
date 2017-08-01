@@ -77,7 +77,7 @@ define(function(require, exports, module) {
                         + '<a href="javascript:void(0);" data-newsid='+ obj.id +' class="new_detail">'
                         + '<div class="' + (imgurl ? 'show' : '') + '"><img src="'+ imgurl +'" width="100%" height="100%"></div>'
                         + '<div>'
-                        + '<p>' + obj.title + '</p>'
+                        + '<p>' + obj.title.substring(0,18) + '...</p>'
                         + '<span>'+ obj.times.substring(5,10) +' | <span>' + (obj.category || '其他') + '</span></span>'
                         + '</div></a></div>'
                 }

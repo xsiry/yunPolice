@@ -85,6 +85,7 @@ define(function(require, exports, module) {
 		},
 		_loadContent : function() {
 			$('input[name="qtype"]').prop("checked",localStorage.getItem("qtype_status") == "true");
+			$('pre.flex_phone').text(_tel);
 			load();
 		}
 	}
@@ -189,6 +190,27 @@ define(function(require, exports, module) {
 		var sex = $('input[name="sex"]:checked').val();
 		var title = $('pre.flex_title').text();
 		var content = $('pre.flex_content').text();
+
+		if (username == '') {
+			alert("姓名不能为空，请填写");
+			return false;
+		}
+
+		var pattern = /^1[34578]\d{9}$/;
+		if (!pattern.test(phone)) {
+			alert("手机号码有误，请重新填写");
+			return false;
+		}
+
+		if (title == '') {
+			alert("标题不能为空，请填写");
+			return false;
+		}
+
+		if (content == '') {
+			alert("详细情况不能为空，请填写");
+			return false;
+		}
 
 		$.ajax({
 			type : 'POST',
