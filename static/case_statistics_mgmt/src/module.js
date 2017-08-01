@@ -25,12 +25,12 @@ define(function(require, exports, module) {
               endedat: $('#endedat').val()+':59'
             }
         });
-        //将会覆盖设置表格对象属性时的parms属性
+        // 将会覆盖设置表格对象属性时的parms属性
 
-        //查询时，设置为第一页！！
+        // 查询时，设置为第一页！！
         manager.changePage("first");
 
-        //重新发起ajax请求，加载数据
+        // 重新发起ajax请求，加载数据
         manager.loadData(true);
       })
         // bind .name_search
@@ -49,8 +49,8 @@ define(function(require, exports, module) {
 
   // Helpers
   /*
-   * 生成Grid
-   */
+	 * 生成Grid
+	 */
   function f_initGrid() {
     var c = require('./columns');
     g = manager = $("div.listDiv").ligerGrid({
@@ -74,15 +74,15 @@ define(function(require, exports, module) {
   };
 
   /*
-   * 导出
-   */
+	 * 导出
+	 */
   function t_export() {
-    window.open(domain + 'case_statistics/xExport.do');
+    window.open(domain + 'case_statistics/xExport.do?startedat=' + $('#startedat').val()+ ':00&endedat=' + $('#endedat').val()+':59')
   }
 
   /*
-   * 搜索
-   */
+	 * 搜索
+	 */
   function f_search() {
     g.options.data = $.extend(true, {}, gridData);
     g.loadData(f_getWhere());
@@ -132,11 +132,11 @@ define(function(require, exports, module) {
     function p(s) {
       return s < 10 ? '0' + s : s;
     }
-    //获取当前年
+    // 获取当前年
     var year = dateTime.getFullYear();
-    //获取当前月
+    // 获取当前月
     var month = dateTime.getMonth() + 1;
-    //获取当前日
+    // 获取当前日
     var date = dateTime.getDate();
     var now = [year, p(month), p(date)].join('-') + " " + (bool ? "00:00" : "23:59");
     return now;
@@ -149,15 +149,15 @@ define(function(require, exports, module) {
     }
 
     var d = date ? date : string2date(str);
-    //获取当前年
+    // 获取当前年
     var year = d.getFullYear();
-    //获取当前月
+    // 获取当前月
     var month = d.getMonth() + 1;
-    //获取当前日
+    // 获取当前日
     var date = d.getDate();
 
-    var h = d.getHours(); //获取当前小时数(0-23)
-    var m = d.getMinutes(); //获取当前分钟数(0-59)
+    var h = d.getHours(); // 获取当前小时数(0-23)
+    var m = d.getMinutes(); // 获取当前分钟数(0-59)
     var s = d.getSeconds();
     var mydatetime = yearBool ? [[year, p(month), p(date)], [p(h), p(m), p(s)]] : [p(month), p(date)];
     var now = yearBool ?  [mydatetime[0].join('-'),mydatetime[1].join('-')].join(' ') : mydatetime.join('-');

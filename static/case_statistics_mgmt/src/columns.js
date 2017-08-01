@@ -2,7 +2,7 @@ define([{
   display: '案发辖区',
   name: 'areaname',
   isSort: false,
-  minWidth: 100
+  minWidth: 120
 }, {
   display: '除主动管理类案件',
   minWidth: 80,
@@ -18,7 +18,8 @@ define([{
   }, {
     display: '同比',
     name: 'noActivemgmtRatio',
-    isSort: false
+    isSort: false,
+    minWidth: 130
   }]
 }, {
   display: '三降案件',
@@ -38,7 +39,8 @@ define([{
     }, {
       display: '同比',
       name: 'currentCaseRatio',
-      isSort: false
+      isSort: false,
+      minWidth: 130
     }]
   }, {
     display: '盗窃',
@@ -57,7 +59,8 @@ define([{
       }, {
         display: '同比',
         name: 'housebreakingRatio',
-        isSort: false
+        isSort: false,
+        minWidth: 130
       }]
     }, {
       display: '盗窃总发案',
@@ -73,7 +76,8 @@ define([{
       }, {
         display: '同比',
         name: 'larcenyRatio',
-        isSort: false
+        isSort: false,
+        minWidth: 130
       }]
     }]
   }, {
@@ -93,7 +97,8 @@ define([{
       }, {
         display: '同比',
         name: 'telecomfraudRatio',
-        isSort: false
+        isSort: false,
+        minWidth: 130
       }]
     }, {
       display: '诈骗总发案',
@@ -109,7 +114,8 @@ define([{
       }, {
         display: '同比',
         name: 'fraudRatio',
-        isSort: false
+        isSort: false,
+        minWidth: 130
       }]
     }]
   }]
@@ -128,7 +134,8 @@ define([{
   }, {
     display: '同比',
     name: 'twoRobRatio',
-    isSort: false
+    isSort: false,
+    minWidth: 130
   }]
 }, {
   display: '主动管理类案件',
@@ -148,7 +155,8 @@ define([{
     }, {
       display: '同比',
       name: 'hardrugRatio',
-      isSort: false
+      isSort: false,
+      minWidth: 130
     }]
   }, {
     display: '治安类刑事案件',
@@ -164,7 +172,8 @@ define([{
     }, {
       display: '同比',
       name: 'criminalJusticeRatio',
-      isSort: false
+      isSort: false,
+      minWidth: 130
     }]
   }, {
     display: '经济案件',
@@ -180,7 +189,8 @@ define([{
     }, {
       display: '同比',
       name: 'economicRatio',
-      isSort: false
+      isSort: false,
+      minWidth: 130
     }]
   }]
 }])
