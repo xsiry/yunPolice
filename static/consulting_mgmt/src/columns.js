@@ -5,11 +5,17 @@ define([{
   isSort: false,
   width: '15%'
 }, {
+	  display: '登陆账号电话',
+	  name: 'phone',
+	  minWidth: 60,
+	  isSort: false,
+	  width: '6%'
+}, {
   display: '申请人',
   name: 'username',
   minWidth: 80,
   isSort: false,
-  width: '10%'
+  width: '8%'
 }, {
   display: '性别',
   name: 'sex',
@@ -24,7 +30,7 @@ define([{
   name: 'phone',
   minWidth: 60,
   isSort: false,
-  width: '10%'
+  width: '6%'
 }, {
   display: '申请时间',
   name: 'createdat',

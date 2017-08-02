@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
-  var domain = "/";
+  var domain = "/didiweb/";
   module.exports = {
 
     init: function() {
@@ -69,8 +69,8 @@ define(function(require, exports, module) {
 
   // Helpers
   /*
-   * 生成Grid
-   */
+	 * 生成Grid
+	 */
   function f_initGrid() {
     var c = require('./columns');
     g = manager = $("div.listDiv").ligerGrid({
@@ -80,6 +80,10 @@ define(function(require, exports, module) {
       },
       url: domain + 'gms_consulting/getList.do',
       method: "get",
+      parms: {
+    	  	u_phone : 'all',
+    	  	qtype: true
+      },
       dataAction: 'server',
       usePager: true,
       enabledEdit: false,
@@ -92,8 +96,8 @@ define(function(require, exports, module) {
   };
 
   /*
-   * 搜索
-   */
+	 * 搜索
+	 */
   function f_search() {
     g.options.data = $.extend(true, {}, gridData);
     g.loadData(f_getWhere());
@@ -153,9 +157,9 @@ define(function(require, exports, module) {
     }, function(dismiss) {
       if (dismiss === 'cancel') {
         // swal(
-        //   '已取消',
-        //   '《' + name + '》未删除 :)',
-        //   'error'
+        // '已取消',
+        // '《' + name + '》未删除 :)',
+        // 'error'
         // )
       }
     })
@@ -207,9 +211,9 @@ define(function(require, exports, module) {
     }, function(dismiss) {
       if (dismiss === 'cancel') {
         // swal(
-        //   '已取消',
-        //   '《' + name + '》未删除 :)',
-        //   'error'
+        // '已取消',
+        // '《' + name + '》未删除 :)',
+        // 'error'
         // )
       }
     })
@@ -264,8 +268,8 @@ define(function(require, exports, module) {
   };
 
   /*
-   * 添加验证
-   */
+	 * 添加验证
+	 */
   function newModalValidation() {
     $('#newModalForm').formValidation({
         autoFocus: true,
@@ -363,7 +367,7 @@ define(function(require, exports, module) {
               ['para', ['ul', 'ol', 'paragraph']],
               ['font', ['height']],
               ['table', ['table']],
-              ['insert', ['hr', 'link']], //, 'video', 'picture'
+              ['insert', ['hr', 'link']], // , 'video', 'picture'
               ['view', ['fullscreen', 'codeview']],
               ['fontname', ['fontname']]
           ]
@@ -376,15 +380,15 @@ define(function(require, exports, module) {
     }
 
     var d = date ? date : string2date(str);
-    //获取当前年
+    // 获取当前年
     var year = d.getFullYear();
-    //获取当前月
+    // 获取当前月
     var month = d.getMonth() + 1;
-    //获取当前日
+    // 获取当前日
     var date = d.getDate();
 
-    var h = d.getHours(); //获取当前小时数(0-23)
-    var m = d.getMinutes(); //获取当前分钟数(0-59)
+    var h = d.getHours(); // 获取当前小时数(0-23)
+    var m = d.getMinutes(); // 获取当前分钟数(0-59)
     var s = d.getSeconds();
     var mydatetime = yearBool ? [[year, p(month), p(date)], [p(h), p(m), p(s)]] : [p(month), p(date)];
     var now = yearBool ?  [mydatetime[0].join('-'),mydatetime[1].join('-')].join(' ') : mydatetime.join('-');
