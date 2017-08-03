@@ -99,7 +99,8 @@ define(function(require, exports, module) {
   }
 
   function news_detail() {
-    var id = $('input[name="newsid"]').val();
+	if (getParams('nd_id')) $('.go_back').hide();
+    var id = getParams('nd_id') ? getParams('nd_id'):$('input[name="newsid"]').val();
     if (id && id != "undefined" && $('.news_detail')) {
       $.ajax({
         type: 'GET',
