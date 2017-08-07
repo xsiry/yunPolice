@@ -1,0 +1,215 @@
+<link rel="stylesheet" type="text/css" href="../static/business/style.css">
+<div class="x-menus">
+    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="active">
+                <a href="#bsfw" role="tab" id="bsfw-tab" data-type="bsfw" data-toggle="tab" aria-controls="bsfw" aria-expanded="true">
+                办事指南</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#flfg" role="tab" id="flfg-tab" data-type="flfg" data-toggle="tab" aria-controls="flfg" aria-expanded="false">
+                法律法规</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#ywzx" role="tab" id="ywzx-tab" data-type="ywzx" data-toggle="tab" aria-controls="ywzx" aria-expanded="false">
+                业务咨询</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="bsfw" aria-labelledby="bsfw-tab">
+                <div class="panel-group x-bsfwlist" id="bsfwlist" role="tablist" aria-multiselectable="true">
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="flfg" aria-labelledby="flfg-tab">
+                <div class="panel-group x-flfglist" id="flfglist" role="tablist" aria-multiselectable="true">
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="ywzx" aria-labelledby="ywzx-tab">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="x-content"></div>
+<script type="text/javascript">
+var jsonBsfw = [{
+        type: '治安业务',
+        tab_id: 'zafw',
+        list: [
+            { title: '爆破物品使用、购买、运输、储存许可指南', href: 'bpwpsygmysccxkzn', date: '' },
+            { title: '刊刻企业印章许可指南', href: 'kkqyyzxkzn', date: '' },
+            { title: '办理旅馆业特种行业许可证指南', href: 'blygytzhxxkzzn', date: '' },
+            { title: '举办大型焰火燃放活动指南', href: 'jbdxyhrfhdzn', date: '' }
+        ]
+    },
+    {
+        type: '户籍业务',
+        tab_id: 'hjyw',
+        list: [
+            { title: '设立集体户口', href: 'sljthk' },
+            { title: '出国、出境公民在国外、境外所生子女入户登记', href: 'cgcjgmzgwjwssznrhdj', date: '' },
+            { title: '婚生婴儿或超计划生育的婴儿入户登记', href: 'hsyehcjhsydyerhdj', date: '' }
+        ]
+    },
+    {
+        type: '出入境业务',
+        tab_id: 'crjyw',
+        list: [
+            { title: '办理出入境护照指南', href: 'blcrjhzzn', date: '' },
+            { title: '办理台湾通行证指南', href: 'bltwtxzzn', date: '' },
+            { title: '办理港澳台通行证指南', href: 'blgattxzzn', date: '' }
+        ]
+    },
+    {
+        type: '禁毒业务',
+        tab_id: 'jdyw',
+        list: [
+            { title: '办理易制毒化学品购买许可证', href: 'blyzdhxpgmxkz', date: '' },
+            { title: '剧毒化学品公路运输通行证', href: 'jdhxpglystxz', date: '' }
+        ]
+    },
+    {
+        type: '网安业务',
+        tab_id: 'wayw',
+        list: [
+            { title: '新开网吧指南', href: 'xkwbzn', date: '' },
+            { title: '网吧年审指南', href: 'wbnszn', date: '' }
+        ]
+    }
+];
+
+var jsonFlfg = [{
+        type: '执法依据',
+        tab_id: 'zfyj',
+        list: [
+            { title: '公安机关人民警察现场制止违法犯罪行为操作规程', href: 'gajgrmjcxczzwffzxwczgc', date: '2017-05-18' },
+            { title: '中华人民共和国禁毒法', href: 'zhrmghgjdf', date: '2016-07-19' },
+            { title: '中华人民共和国治安管理处罚', href: 'zhrmghgzaglcf', date: '2016-07-18' }
+        ]
+    },
+    {
+        type: '职业纪律',
+        tab_id: 'zyjl',
+        list: [
+            { title: '公安机关督察条例', href: 'gajgdctl', date: '2017-05-18' },
+            { title: '公安机关人民警察奖励条令', href: 'gajgrmjcjltl', date: '2016-07-22' },
+            { title: '中华人民共和国人民警察使用警械和武器条例', href: 'zhrmghgrmjcsyjxhwqtl', date: '2016-07-21' }
+        ]
+    },
+    {
+        type: '受案范围',
+        tab_id: 'safw',
+        list: [
+            { title: '行政案件受案', href: 'xzajsa', date: '2016-07-11' },
+            { title: '刑事立案', href: 'xsla', date: '2016-07-08' }
+        ]
+    }
+];
+
+$(document).ready(function() {
+    bind();
+    var _tel = getParams('TEL');
+    loadURL($('#ywzx'), '../apps/consulting.html', '');
+    // $('.ywzx_btn a').prop('href', 'content.html?page=&TEL='+_tel);
+    var bpage = getParams('bpage');
+    if(bpage == "bszn") {
+        $('#myTabs a:eq(0)').trigger('click');
+    }else if(bpage == "flfg"){
+        $('#myTabs a:eq(1)').trigger('click');
+    }
+});
+
+function bind() {
+    $.root = $('body');
+
+    $.root.on('click', '#myTabs a', function(e) {
+        var key = {
+            bsfw: { data: jsonBsfw, type: 'bsfw', showHtml: '../apps/business_table.html' },
+            flfg: { data: jsonFlfg, type: 'flfg', showHtml: '../apps/business_content.html' }
+        }
+        var me = $(this);
+        var type = me.data('type');
+        if (type == "ywzx") return;
+        generateTabList(key[type]);
+    })
+
+    $.root.on('click', '.tab-pane.active li>a', function(e) {
+        var me = $(this);
+        var target = me.data('target');
+        var url = me.data('url');
+        $('.x-menus').hide();
+        $('.x-content').show();
+        loadURL($('div.x-content'), url, target);
+    })
+}
+
+function generateTab() {}
+
+function generateTabList(config) {
+    var tabHtml = '';
+    $.each(config.data, function(i, o) {
+        tabHtml += '<div class="panel panel-default">' +
+            '<div class="panel-heading" role="tab" id="' + o.tab_id + '">' +
+            '<h4 class="panel-title">' +
+            '<a ' + (i == 0 ? '' : 'class="collapsed"') + ' role="button" data-parent="#' + config.type + 'list" data-toggle="collapse" href="#labels_' + o.tab_id + '" aria-expanded="' + (i == 0 ? 'true' : 'false') + '" aria-controls="labels_' + o.tab_id + '">' + o.type + '</a></h4></div>' +
+            '<div id="labels_' + o.tab_id + '" class="panel-collapse collapse ' + (i == 0 ? 'in' : '') + '" role="tabpanel" aria-labelledby="' + o.tab_id + '">' +
+            '<ul class="list-group">';
+
+        $.each(o.list, function(i, n) {
+            tabHtml += '<li class="list-group-item"><a href="javascript:void(0);" data-url="' + config.showHtml + '" data-target="' + n.href + '" >' + n.title+ (n.date ? '('+ n.date +')' : '') + '</a></li>'
+        })
+
+        tabHtml += '</ul></div><iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></div>';
+    })
+    $('#' + config.type + '>div.x-' + config.type + 'list').empty().append(tabHtml);
+}
+
+function loadURL(element, url, target) {
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'html',
+        cache: !0,
+        beforeSend: function() {
+            element.removeData().html(""),
+                element.html('<div class="dropload-load"><div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div></div>'),
+                element[0] == $("#content")[0] && ($("body").find("> *").filter(":not(" + ignore_key_elms + ")").empty().remove(),
+                    drawBreadCrumb(),
+                    $("html").animate({
+                        "scrollTop": 0
+                    }, "fast"))
+        },
+        success: function(data) {
+            element.css({
+                    "opacity": "0.0"
+                }).html(data).append(target ? '<input type="hidden" name="type" value="' + target + '"/>' : '').delay(50).animate({
+                    "opacity": "1.0"
+                }, 300),
+                data = null,
+                element = null
+        },
+        error: function(c, d, e) {
+            element.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Error requesting <span class="txt-color-red">' + url + "</span>: " + c.status + ' <span style="text-transform: capitalize;">' + e + "</span></h4>")
+        },
+        async: !0
+    })
+}
+
+    // url传参数变化类别
+  function getParams(fndname) {
+    var url = location.search; //一般的查询
+    var query = url.substr(url.indexOf("?") + 1);
+    var pairs = query.split("&"); //在逗号处断开
+    for (var i = 0; i < pairs.length; i++) {
+        var pos = pairs[i].indexOf('='); //查找name=value
+        if (pos == -1)
+            continue; //如果没有找到就跳过
+        var argname = pairs[i].substring(0, pos); //提取name
+        var value = pairs[i].substring(pos + 1); //提取value
+        if (argname == fndname)
+            return value;
+    }
+  }
+</script>
+
+</html>
