@@ -9,11 +9,16 @@
         <input type="checkbox" id="qtype" name="qtype" class="raw-checkbox">
         <label for="qtype" class="emulate-ios-button"></label>
     </div>
-    <span class="btn_text">显示所有咨询</span>
+    <span class="btn_text">只显示自己</span>
 </div>
+<article class="list_content">
+  <section class="list_content_panel">
+  </section>
+</article>
+<input type="hidden" name="pageNo" class="page_no" value="1" />
 <div class="cons_detail">
-    <div class="go_back">
-        <a class="go_back_btn" href="javascript:void(0);">
+    <div class="consulting_go_back">
+        <a class="consulting_go_back_btn" href="javascript:void(0);">
           <svg class="svg_icon" viewBox="0 0 1024 1024">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow_svg"></use>
           </svg>
@@ -47,7 +52,7 @@
     </a>
 </div>
 <div class="cons_content">
-    <div class="row userinfo">
+<!--     <div class="row userinfo">
         <div class="col-xs-4 x-col-username">
             <pre id="editTitle" contenteditable-directive="" mm-paste=""
              contenteditable="true" class="flex flex_username" data-placeholder="姓名"></pre>
@@ -64,7 +69,7 @@
               <input type="radio" name="sex" value="1">女
             </label>
         </div>
-    </div>
+    </div> -->
     <div class="cons_title">
         <pre id="editTitle" contenteditable-directive="" mm-paste=""
              contenteditable="true" class="flex flex_title" data-placeholder="咨询问题"></pre>
@@ -73,12 +78,14 @@
 		<pre id="editContent" contenteditable-directive="" mm-paste=""
              contenteditable="true" class="flex flex_content" data-placeholder="详细情况"></pre>
     </div>
+    <div class="text-center cons_msg_error">
+        <span></span>
+    </div>
     <div class="pull-right cons_msg_btn">
         <button type="button" class="btn btn-info cons_cancel_btn">取消</button>
         <button type="button" class="btn btn-success cons_commit_btn">提交咨询</button>
     </div>
 </div>
-<script type="text/javascript" src="../sea-modules/dropload/dropload.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         seajs.use('../static/consulting/src/main');

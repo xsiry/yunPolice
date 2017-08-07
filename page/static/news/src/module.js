@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var domain = "/";
+  var domain = "/didiweb/";
   module.exports = {
     init: function() {
       this._bindUI();
@@ -57,7 +57,7 @@ define(function(require, exports, module) {
               if (list == null) {
                 $(".page_no").val(parseInt($(".page_no").val()) - 1);
               };
-              if (list.length == 0) {
+              if (list && list.length == 0) {
                 tabLoadEnd = true;
               }
               setTimeout(function() {

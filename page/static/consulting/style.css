@@ -9,7 +9,7 @@ body {
 }
 
 .x-menus>div:first-child {
-	padding: 10px;
+/*	padding: 10px;*/
 }
 
 .list_content {
@@ -63,13 +63,20 @@ a.x-row-blocks>div:first-child>div:first-child>span {
 .cons_content {
 	display: none;
 	position: fixed;
-	top: 0;
-	width: 100%;
-	background: rgba(17, 17, 17, 0.8);
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	padding: 5px;
-	z-index: 100;
+  top: 0;
+  margin-top: 0 !important;
+  margin-left: -10px;
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 100;
+}
+
+.consulting_go_back {
+  margin-left: -10px;
 }
 
 .cons_content .x-radio {
@@ -128,9 +135,9 @@ pre:focus:before{
 .flex {
 	background: #fff;
 	border: none;
-	border-radius: 4px;
-	max-height: 132px;
-	min-height: 66px;
+	border-radius: 0;
+	max-height: 264px;
+  min-height: 132px;
 	padding-left: 10px;
 	padding-right: 10px;
 	overflow-y: auto;
@@ -147,6 +154,7 @@ pre:focus:before{
 
 .cons_msg_btn button {
 	margin-right: 6px;
+  margin-left: 6px;
 }
 
 .cons_title {
@@ -154,8 +162,9 @@ pre:focus:before{
 	background: rgba(17, 17, 17, 0);
 	margin-right: 10px;
 	color: #fff;
-	width: 80%;
+	width: 100%;
 	padding: 0px;
+  border-radius: 0 !important;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
@@ -166,10 +175,11 @@ pre:focus:before{
 }
 
 .cons_msg {
-	width: 80%;
-	opacity: 0.95;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	width: 100%;
+  background: rgba(17, 17, 17, 0);
+	/*opacity: 0.95;*/
+	/*border: 1px solid #ccc;*/
+	border-radius: 0 !important;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow
@@ -181,16 +191,18 @@ pre:focus:before{
 
 .cons_cancel_btn {
 	position: absolute;
-	right: 0;
-	bottom: 0;
-	padding: 12px 22px;
-	margin-bottom: 71px;
+  left: 0;
+  bottom: 0;
+  border-radius: 0;
+  padding: 12px 22px;
+  margin-bottom: 7px;
 }
 
 .cons_commit_btn {
 	position: absolute;
 	right: 0;
 	bottom: 0;
+  border-radius: 0;
 	padding: 12px 8px;
 	margin-bottom: 7px;
 }
@@ -203,7 +215,9 @@ pre:focus:before{
   width: 100%;
   height: 100%;
   z-index: 200;
+  padding-right: 20px;
   background-color: #FFF;
+  overflow-y: auto;
 }
 
 .cons_detail .cons_detail_content {
@@ -268,23 +282,26 @@ pre:focus:before{
 
 .x-qtype {
 	display: block;
-  height: 3rem;
+	height: 3rem;
 	transition: transform .2s linear;
 	-webkit-transition: -webkit-transform .2s linear;
-	transform: translateX(210px);
-  -webkit-transform: -webkit-translateX(210px);
+	transform: translateX(188px);
+	-webkit-transform: -webkit-translateX(188px);
 	position: fixed;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 0 5px 0 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 0 5px 0 0;
 }
 
 .x-qtype-top {
+ 	display: block;
 	border-radius: 0 0 0 18px;
-	top: 0;
+	top: -10px;
+	z-index: 10;
 }
 
 .x-qtype-down {
+  display: none;
 	border-radius: 18px 0 0 0;
 	bottom: 0;
 }
@@ -314,6 +331,10 @@ pre:focus:before{
   line-height: 3rem;
   padding: 0 10px 0 0;
   color: #1296db;
+}
+
+.cons_msg_error {
+  color: red;
 }
 
 

@@ -58,7 +58,7 @@ body {
   margin-left: 12px;
 }
 
-.go_back {
+.go_back, .consulting_go_back {
     position: fixed;
     top: 0;
     width: 100%;
@@ -68,13 +68,13 @@ body {
     z-index: 500;
 }
 
-.go_back a {
+.go_back a, .consulting_go_back a {
     width: 20%;
     height: 100%;
     display: block;
 }
 
-.go_back .svg_icon {
+.go_back .svg_icon, .consulting_go_back  .svg_icon {
     width: 30px;
     height: 30px;
     margin-top: 3px;
