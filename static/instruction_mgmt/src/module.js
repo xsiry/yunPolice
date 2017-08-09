@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var _type = getParams('type'); // type = 1:办事指南 2: 法律法规
-  var _domain = "/didiweb/";
+  var _domain = "/";
   var manager, g;
   module.exports = {
 
@@ -32,6 +32,7 @@ define(function(require, exports, module) {
         // bind .v_mnt_new_modal_btn
       $.root_.on("click", '.new_modal_btn', function(e) {
         var fun = function(dialogRef) {
+          initCombo();
           initSummernote();
           newModalValidation();
         }
@@ -78,7 +79,7 @@ define(function(require, exports, module) {
       onSelectRow: function(rowdata, rowindex) {
         $("#txtrowindex").val(rowindex);
       },
-      url: _domain + 'instruction/getGirds.do',
+      url: _domain + 'instruction/getGrids.do',
       parms: { type: _type },
       method: "get",
       dataAction: 'server',
@@ -129,8 +130,10 @@ define(function(require, exports, module) {
               $('#newModalForm input[name="'+ key +'"]').val(val);
               if (key == 'content') {
                 $('div.summernote').summernote('code', val);
+              }if(key == 'groupname') {
+                initCombo(val);
               }
-            })
+            });
           }
           newModal('修改'+ (_type == 1 ? '办事指南': '法律法规'), fun);
         }
@@ -277,11 +280,16 @@ define(function(require, exports, module) {
         // Get the FormValidation instance
         var bv = $form.data('formValidation');
         var content = $('div.summernote').summernote('code');
+        var groupname = $("select[name='groupname']").val();
 
-        if (!content) {
-          alert('内容不能为空');
+        if (groupname == "") {
+          alert('请选择分组！');
           return;
         }
+        // if (content == "") {
+        //   alert('内容不能为空');
+        //   return;
+        // }
         // Use Ajax to submit form data
         var formVals = {created: dateFactory('', new Date(), true), content: content, type: _type};
         $.each($form.serializeArray(), function(i, o) {
@@ -345,7 +353,36 @@ define(function(require, exports, module) {
       });
   }
 
-    // url传参数变化类别
+  /*
+   * 初始化Combo
+   */
+  function initCombo(val) {
+    $.ajax({
+      type : 'GET',
+      contentType : 'application/json',
+      url : _domain + "instruction/getGroupList.do",
+      dataType : 'json',
+      data : {
+        type: _type
+      },
+      success : function(data) {
+        var sels = '<option value></option>';
+
+        $.each(data.Rows, function(i, o) {
+          var selected = o.dicName == val ? 'selected': '';
+          sels += '<option value="'+ o.dicName +'" '+ selected +'>'+ o.dicName +'</option>';
+        })
+
+        $('.chosen-select').empty().append(sels);
+        $('.chosen-select').chosen({});
+      },
+      error : function(e) {
+          console.log(e);
+      }
+    });
+  };
+
+  // url传参数变化类别
   function getParams(fndname) {
     var url = location.search; //一般的查询
     var query = url.substr(url.indexOf("?") + 1);

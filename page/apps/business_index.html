@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../static/business/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <div class="x-menus">
     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
         <ul id="myTabs" class="nav nav-tabs" role="tablist">
@@ -30,96 +31,85 @@
         </div>
     </div>
 </div>
-<div class="x-content"></div>
-<script type="text/javascript">
-var jsonBsfw = [{
-        type: '治安业务',
-        tab_id: 'zafw',
-        list: [
-            { title: '爆破物品使用、购买、运输、储存许可指南', href: 'bpwpsygmysccxkzn', date: '' },
-            { title: '刊刻企业印章许可指南', href: 'kkqyyzxkzn', date: '' },
-            { title: '办理旅馆业特种行业许可证指南', href: 'blygytzhxxkzzn', date: '' },
-            { title: '举办大型焰火燃放活动指南', href: 'jbdxyhrfhdzn', date: '' }
-        ]
-    },
-    {
-        type: '户籍业务',
-        tab_id: 'hjyw',
-        list: [
-            { title: '设立集体户口', href: 'sljthk' },
-            { title: '出国、出境公民在国外、境外所生子女入户登记', href: 'cgcjgmzgwjwssznrhdj', date: '' },
-            { title: '婚生婴儿或超计划生育的婴儿入户登记', href: 'hsyehcjhsydyerhdj', date: '' }
-        ]
-    },
-    {
-        type: '出入境业务',
-        tab_id: 'crjyw',
-        list: [
-            { title: '办理出入境护照指南', href: 'blcrjhzzn', date: '' },
-            { title: '办理台湾通行证指南', href: 'bltwtxzzn', date: '' },
-            { title: '办理港澳台通行证指南', href: 'blgattxzzn', date: '' }
-        ]
-    },
-    {
-        type: '禁毒业务',
-        tab_id: 'jdyw',
-        list: [
-            { title: '办理易制毒化学品购买许可证', href: 'blyzdhxpgmxkz', date: '' },
-            { title: '剧毒化学品公路运输通行证', href: 'jdhxpglystxz', date: '' }
-        ]
-    },
-    {
-        type: '网安业务',
-        tab_id: 'wayw',
-        list: [
-            { title: '新开网吧指南', href: 'xkwbzn', date: '' },
-            { title: '网吧年审指南', href: 'wbnszn', date: '' }
-        ]
-    }
-];
+   <div class="x-content"></div>
+   <script type="text/javascript">
+  var jsonBsfw = [];
+  var jsonFlfg = [];
+	$(document).ready(function() {
+		loadList();
+		bind();
+		loadURL($('#ywzx'), '../apps/consulting.html', '');
+	});
 
-var jsonFlfg = [{
-        type: '执法依据',
-        tab_id: 'zfyj',
-        list: [
-            { title: '公安机关人民警察现场制止违法犯罪行为操作规程', href: 'gajgrmjcxczzwffzxwczgc', date: '2017-05-18' },
-            { title: '中华人民共和国禁毒法', href: 'zhrmghgjdf', date: '2016-07-19' },
-            { title: '中华人民共和国治安管理处罚', href: 'zhrmghgzaglcf', date: '2016-07-18' }
-        ]
-    },
-    {
-        type: '职业纪律',
-        tab_id: 'zyjl',
-        list: [
-            { title: '公安机关督察条例', href: 'gajgdctl', date: '2017-05-18' },
-            { title: '公安机关人民警察奖励条令', href: 'gajgrmjcjltl', date: '2016-07-22' },
-            { title: '中华人民共和国人民警察使用警械和武器条例', href: 'zhrmghgrmjcsyjxhwqtl', date: '2016-07-21' }
-        ]
-    },
-    {
-        type: '受案范围',
-        tab_id: 'safw',
-        list: [
-            { title: '行政案件受案', href: 'xzajsa', date: '2016-07-11' },
-            { title: '刑事立案', href: 'xsla', date: '2016-07-08' }
-        ]
-    }
-];
+	function myClick() {
+		var bpage = getParams('bpage');
+		if (bpage == "bszn") {
+			$('#myTabs a:eq(0)').trigger('click');
+		} else if (bpage == "flfg") {
+			$('#myTabs a:eq(1)').trigger('click');
+		}
+	}
 
-$(document).ready(function() {
-    bind();
-    var _tel = getParams('TEL');
-    loadURL($('#ywzx'), '../apps/consulting.html', '');
-    // $('.ywzx_btn a').prop('href', 'content.html?page=&TEL='+_tel);
-    var bpage = getParams('bpage');
-    if(bpage == "bszn") {
-        $('#myTabs a:eq(0)').trigger('click');
-    }else if(bpage == "flfg"){
-        $('#myTabs a:eq(1)').trigger('click');
-    }
-});
+	function loadList(){
+	  $.ajax({
+	      type : 'GET',
+	      url : '/instruction/getList.do',
+	      data: {
+	      	type: 1
+	      },
+	      dataType : 'json',
+	      success : function(data) {
+	    	 var hash = {};
+	    	 $.each(data.Rows, function(i, o) {
+	    	 	if (hash[o.groupname] == null) {
+	    	 		hash[o.groupname] = [];
+	    	 	}
+	    	 	hash[o.groupname].push({'title': o.title, 'id': o.id})
+	    	 })
+	    	 $.each(hash, function(key, value){
+	    	 	var row = {};
+	    	 	row['type'] = key;
+	    	 	row['tab_id'] = key;
+	    	 	row['list'] = value;
+	    	 	jsonBsfw.push(row);
+	    	 })
+	    	 myClick();
+	      },
+	      error:function (data){
+	    	 console.log('访问出错');
+	      }
+	      })
 
-function bind() {
+	      $.ajax({
+	      type : 'GET',
+	      url : '/instruction/getList.do',
+	      data: {
+	      	type: 2
+	      },
+	      dataType : 'json',
+	      success : function(data) {
+	    	 var hash = {};
+	    	 $.each(data.Rows, function(i, o) {
+	    	 	if (hash[o.groupname] == null) {
+	    	 		hash[o.groupname] = [];
+	    	 	}
+	    	 	hash[o.groupname].push({'title': o.title, 'id': o.id})
+	    	 })
+	    	 $.each(hash, function(key, value){
+	    	 	var row = {};
+	    	 	row['type'] = key;
+	    	 	row['tab_id'] = key;
+	    	 	row['list'] = value;
+	    	 	jsonFlfg.push(row);
+	    	 })
+	      },
+	      error:function (data){
+	    	 console.log('访问出错');
+	      }
+	      })
+	}
+
+	function bind() {
     $.root = $('body');
 
     $.root.on('click', '#myTabs a', function(e) {
@@ -156,7 +146,7 @@ function generateTabList(config) {
             '<ul class="list-group">';
 
         $.each(o.list, function(i, n) {
-            tabHtml += '<li class="list-group-item"><a href="javascript:void(0);" data-url="' + config.showHtml + '" data-target="' + n.href + '" >' + n.title+ (n.date ? '('+ n.date +')' : '') + '</a></li>'
+            tabHtml += '<li class="list-group-item"><a href="javascript:void(0);" data-url="' + config.showHtml + '" data-target="' + n.id + '" >' + n.title+ (n.date ? '('+ n.date +')' : '') + '</a></li>'
         })
 
         tabHtml += '</ul></div><iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></div>';
