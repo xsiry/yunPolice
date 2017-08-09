@@ -61,8 +61,8 @@ a.x-row-blocks>div:first-child>div:first-child>span {
 }
 
 .cons_content {
-	display: none;
-	position: fixed;
+  display: none;
+  position: fixed;
   top: 0;
   margin-top: 0 !important;
   margin-left: -10px;
@@ -76,7 +76,26 @@ a.x-row-blocks>div:first-child>div:first-child>span {
 }
 
 .consulting_go_back {
-  margin-left: -10px;
+    position: inherit;
+    top: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+    margin-left: -10px;
+    z-index: 100;
+}
+
+.consulting_go_back a {
+    width: 20%;
+    height: 100%;
+    display: block;
+}
+
+.consulting_go_back .svg_icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 3px;
 }
 
 .cons_content .x-radio {
@@ -100,7 +119,7 @@ a.x-row-blocks>div:first-child>div:first-child>span {
 
 .cons_content .userinfo .x-col-username {
   padding-right: 1.5px;
-  padding-left: 15px;
+  padding-left: 0;
 }
 
 .cons_content .userinfo .x-col-phone {
@@ -113,7 +132,11 @@ a.x-row-blocks>div:first-child>div:first-child>span {
   padding-top: 6px;
   font-size: 1.2rem;
   line-height: 1.2rem;
-  color: #FFF;
+  color: #384a74;
+  border: 0;
+  height: 40px;
+  background-color: #FFF;
+  margin-bottom: 3px;
 }
 
 pre {
@@ -153,8 +176,8 @@ pre:focus:before{
 }
 
 .cons_msg_btn button {
-	margin-right: 6px;
-  margin-left: 6px;
+	/*margin-right: 6px;
+  margin-left: 6px;*/
 }
 
 .cons_title {
@@ -175,6 +198,7 @@ pre:focus:before{
 }
 
 .cons_msg {
+  margin-bottom: 10px;
 	width: 100%;
   background: rgba(17, 17, 17, 0);
 	/*opacity: 0.95;*/
@@ -189,6 +213,11 @@ pre:focus:before{
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.cons_msg_btn {
+  padding: 0 20px;
+  margin-bottom: 5px;
+}
+
 .cons_cancel_btn {
 	position: absolute;
   left: 0;
@@ -199,12 +228,19 @@ pre:focus:before{
 }
 
 .cons_commit_btn {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-  border-radius: 0;
-	padding: 12px 8px;
-	margin-bottom: 7px;
+	border-radius: 0;
+  margin-top: 7px;
+  background-color: #384a74;
+  border-color: #384a74;
+}
+
+.cons_commit_btn:hover,
+.cons_commit_btn:active:hover,
+.cons_commit_btn:active:focus,
+.cons_commit_btn:focus {
+  color: #fff;
+  background-color: #384a74;
+  border-color: #384a74;
 }
 
 .cons_detail {
@@ -285,8 +321,8 @@ pre:focus:before{
 	height: 3rem;
 	transition: transform .2s linear;
 	-webkit-transition: -webkit-transform .2s linear;
-	transform: translateX(188px);
-	-webkit-transform: -webkit-translateX(188px);
+	transform: translateX(166px);
+	-webkit-transform: -webkit-translateX(166px);
 	position: fixed;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.7);

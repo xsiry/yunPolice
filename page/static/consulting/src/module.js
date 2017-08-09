@@ -29,7 +29,7 @@ define(function(require, exports, module) {
                     commitMsg();
                 })
             $.root_.off('click', '.cons_cancel_btn').on('click', '.cons_cancel_btn', function(e) {
-                    $('.reply_content').hide();
+                    $('.cons_content').hide();
                 })
             $.root_.off('click', '.x-row-blocks').on('click', '.x-row-blocks', function(e) {
                     var id = $(e.currentTarget).data("id");
@@ -78,12 +78,12 @@ define(function(require, exports, module) {
                     }
                 })
             $.root_.off('change', 'input[name="qtype"]').on('change', 'input[name="qtype"]', function(e) {
-                    localStorage.setItem("qtype_status", !$(e.currentTarget).is(':checked'));
+                    localStorage.setItem("qtype_status", $(e.currentTarget).is(':checked'));
                     reload();
                 })
         },
         _loadContent: function() {
-            $('input[name="qtype"]').prop("checked", !(localStorage.getItem("qtype_status") == "true"));
+            $('input[name="qtype"]').prop("checked", (localStorage.getItem("qtype_status") == "true"));
             load();
         }
     }
@@ -114,7 +114,7 @@ define(function(require, exports, module) {
                     domNoData: '<div class="dropload-noData">已无数据</div>'
                 },
                 loadUpFn: function(me) {
-                    window.location.reload();
+                		reload();
                 },
                 loadDownFn: function(me) {
                     $.ajax({
@@ -203,39 +203,33 @@ define(function(require, exports, module) {
     }
 
     function commitMsg() {
-        // var username = $('pre.flex_username').text();
+        var username = $('pre.flex_username').text();
         // var phone = $('pre.flex_phone').text();
-        // var sex = $('input[name="sex"]:checked').val();
+        var sex = $('input[name="sex"]:checked').val();
         var title = $('pre.flex_title').text();
         var content = $('pre.flex_content').text();
-        var username = decodeURIComponent(_name);
-        var sex = _sex=='男'? 0 : 1;
-        // if (username == '') {
-        //     alert("姓名不能为空，请填写");
-        //     return false;
-        // }
+
+        if (username == '') {
+        		alert("姓名不能为空，请填写");
+            return false;
+        }
 
         // var pattern = /^1[34578]\d{9}$/;
         // if (!pattern.test(phone)) {
         //     alert("手机号码有误，请重新填写");
         //     return false;
         // }
-        //
-        if (!username || !_sex) {
-            $('.cons_msg_error span').text("提交失败！");
-            return false;
-        }
 
         if (title == '') {
-            $('.cons_msg_error span').text("咨询问题不能为空，请填写");
+        		alert("咨询问题不能为空，请填写");
             return false;
         }
 
         if (content == '') {
-            $('.cons_msg_error span').text("详细情况不能为空，请填写");
+        		alert("详细情况不能为空，请填写");
             return false;
         }
-
+        $('.cons_msg_error span').text("");
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -245,21 +239,26 @@ define(function(require, exports, module) {
                 username: username,
                 // phone: phone,
                 u_phone: _tel,
-                sex: sex,
+                sex: parseInt(sex),
                 title: title,
                 content: content,
                 createdat: toLocaleString('', new Date())
             }),
             success: function(data) {
                 if (data) {
-                    $('.cons_cancel_btn').trigger('click');
-                    reload();
+                    $('.cons_commit_btn').text('提交成功！');
+                    $('.cons_commit_btn').prop("disabled","disabled");
+                    var fun = function() {
+                    	 	$('.cons_content').hide();
+                    		reload();
+                    }
+                    setTimeout(fun, 1500)
                 }else{
-                    $('.cons_msg_error span').text("提交失败！请重新尝试！");
+                    alert("提交失败！请重新尝试！");
                 }
             },
             error: function(e) {
-                $('.cons_msg_error span').text("提交失败！服务器错误")
+            		alert("提交失败！服务器错误")
                 console.log(e);
             }
         });
