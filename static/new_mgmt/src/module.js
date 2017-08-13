@@ -44,7 +44,7 @@ define(function(require, exports, module) {
           $('.new_author').text(row.author);
           $('.new_conten').html(row.content);
           $('.new_source').text(row.source);
-          $('.new_times').text(row.times);
+          $('.new_times').text(row.times? row.times.substring(0, row.times.length-2): '');
           $.each(row.imgs.split(';'), function(i , url) {
             if (url != "") $('.new_picture').append('<img style="margin-right:10px;width: 100px;height: 100px;" src="' + url + '">');
           });

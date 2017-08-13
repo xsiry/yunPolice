@@ -9,23 +9,24 @@
 </div>
   <script type="text/javascript">
 $(document).ready(function() {
+		var _domain = '/didiweb/';
     var id = $('input[name="type"]').val();
     $.ajax({
 		type : "GET",
-		url : '/instruction/get.do',
+		url : _domain + 'instruction/get.do',
 		data: {
 			id: id
 		},
 		success : function(data) {
 			var data = data.data;
 			var thtml = '';
-		    thtml += '<div class="row"><div class="col-xs-12 text-center" style="font-size: 1.6rem;">' + data.title + '</div></div>';
+		    thtml += '<div class="row"><div class="col-xs-12 text-center" style="font-size: 1.2rem;">' + data.title + '</div></div>';
 		    thtml += '<div class="row"><div class="col-xs-12 text-center '+(data.describe? "":"hide")+'" style="font-size: 1rem;">' + data.describe + '</div></div>';
-		    thtml += '<div class="row"><div class="col-xs-12" style="font-size: 1.2rem;">' + data.content + '</div></div>';
+		    thtml += '<div class="row"><div class="col-xs-12">' + data.content + '</div></div>';
 		    $('.x-text').empty().append(thtml);
 		}
 	});
-    
+
     $('.business_go_back').on('click', function() {
         $('.x-content').hide();
         $('.x-menus').show();

@@ -3,19 +3,19 @@ define([{
   name: 'title',
   minWidth: 50,
   isSort: false,
-  width: '20%'
+  width: '30%'
 }, {
 	  display: '备注',
 	  name: 'remarks',
 	  minWidth: 60,
 	  isSort: false,
 	  width: '45%'
-}, {
-  display: '分组',
-  name: 'groupname',
-  minWidth: 80,
-  isSort: false,
-  width: '10%'
+//}, {
+//  display: '分组',
+//  name: 'groupname',
+//  minWidth: 80,
+//  isSort: false,
+//  width: '10%'
 }, {
   display: '创建时间',
   name: 'created',

@@ -162,7 +162,7 @@ define(function(require, exports, module) {
             manager.reload();
             swal(
               '删除成功:)',
-              '指南《' + name + '》已被删除.',
+              (_type == 1 ? '办事指南': '法律法规') +'《' + name + '》已被删除.',
               'success'
             )
           }else{
@@ -280,12 +280,12 @@ define(function(require, exports, module) {
         // Get the FormValidation instance
         var bv = $form.data('formValidation');
         var content = $('div.summernote').summernote('code');
-        var groupname = $("select[name='groupname']").val();
-
-        if (groupname == "") {
-          alert('请选择分组！');
-          return;
-        }
+//        var groupname = $("select[name='groupname']").val();
+//
+//        if (groupname == "") {
+//          alert('请选择分组！');
+//          return;
+//        }
         // if (content == "") {
         //   alert('内容不能为空');
         //   return;

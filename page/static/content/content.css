@@ -8,6 +8,7 @@ body {
   font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
   text-align: justify;
   text-justify: inter-ideograph;
+  font-size: 0.95rem;
 }
 
 .svg_icon {

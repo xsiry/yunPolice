@@ -1,6 +1,8 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var domain = "/didiweb/";
+  var domain = "/";
+  var _tabLoadEnd = false;
+  var _dropLoad;
   module.exports = {
     init: function() {
       this._bindUI();
@@ -18,10 +20,23 @@ define(function(require, exports, module) {
     }
   }
 
+  function reload() {
+      _tabLoadEnd = false;
+
+      if (_dropLoad != null) {
+          $(".page_no").val(1);
+          $('.news_content section').empty();
+          _dropLoad.unlock();
+          _dropLoad.noData(false);
+          _dropLoad.resetload();
+          return;
+      };
+      load();
+  }
+
   function load() {
-    var tabLoadEnd = false;
     var tabLenght = 0;
-    $('.news_content').dropload({
+    _dropLoad = $('.news_content').dropload({
       scrollArea: window,
       domUp : {                                                            // 上方DOM
         domClass   : 'dropload-up',
@@ -36,7 +51,9 @@ define(function(require, exports, module) {
         domNoData: '<div class="dropload-noData">已无数据</div>'
       },
       loadUpFn: function(me) {
-        window.location.reload();
+        me.upInsertDOM = false;
+        me.$domUp.remove();
+        reload();
       },
       loadDownFn: function(me) {
         $.ajax({
@@ -58,10 +75,10 @@ define(function(require, exports, module) {
                 $(".page_no").val(parseInt($(".page_no").val()) - 1);
               };
               if (list && list.length == 0) {
-                tabLoadEnd = true;
+                _tabLoadEnd = true;
               }
               setTimeout(function() {
-                if (tabLoadEnd) {
+                if (_tabLoadEnd) {
                     me.resetload();
                     me.lock();
                     me.noData();
@@ -78,7 +95,7 @@ define(function(require, exports, module) {
                         + '<div class="' + (imgurl ? 'show' : '') + '"><img src="'+ imgurl +'" width="100%" height="100%"></div>'
                         + '<div>'
                         + '<p>' + (obj.title.length > 18?(obj.title.substring(0,18)+'...'): obj.title) + '</p>'
-                        + '<span>'+ obj.times.substring(5,10) +' | <span>' + (obj.category || '其他') + '</span></span>'
+                        + '<span>'+ obj.times.substring(5,10) //+' | <span>' + (obj.category || '其他') + '</span></span>'
                         + '</div></a></div>'
                 }
                 $('.news_content_panel').append(result);

@@ -1,5 +1,26 @@
 <link rel="stylesheet" type="text/css" href="../static/consulting/style.css">
-<div class="x-qtype x-qtype-top">
+<div class="x-zx-top">
+    <div class="form-inline" style="padding:10px;position: relative;">
+        <input type="text" class="form-control" id="x-search" placeholder="搜索">
+        <a class="canal_btn" href="javascript:void(0);">
+          <svg class="svg_icon" viewBox="0 0 1024 1024">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#canal_svg"></use>
+          </svg>
+        </a>
+        <a class="search_btn" href="javascript:void(0);">
+          <svg class="svg_icon" viewBox="0 0 1024 1024">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search_svg"></use>
+          </svg>
+        </a>
+    </div>
+
+    <ul class="nav nav-tabs wtzx_tabs" role="tablist">
+      <li class="active"><a data-toggle="tab" data-qtype="public">常见问题</a></li>
+      <li class=""><a data-toggle="tab" data-qtype="me">我的问题</a></li>
+      <li class="" style="display:none;"><a data-toggle="tab" data-qtype="search">搜索结果</a></li>
+    </ul>
+</div>
+<!-- <div class="x-qtype x-qtype-top">
     <a href="javascript:void(0);" class="x-qtype-btn">
         <svg class="svg_icon" viewBox="0 0 1024 1024">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#set_btn_svg"></use>
@@ -10,7 +31,7 @@
         <label for="qtype" class="emulate-ios-button"></label>
     </div>
     <span class="btn_text">只看自己</span>
-</div>
+</div> -->
 <article class="list_content">
   <section class="list_content_panel">
   </section>
@@ -26,21 +47,32 @@
     </div>
     <div class="cons_detail_content">
         <div class="row">
-            <div class="col-xs-12 detail_title text-centent"><span></span></div>
+            <div class="col-xs-12">
+                <div class="pull-left x-label">标&emsp;题：</div>
+                <div class="detail_title text-centent">
+                    <span></span>
+                </div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 detail_content text-left"></div>
+            <div class="col-xs-12">
+                <div class="pull-left x-label">内&emsp;容：</div>
+                <div class="detail_content text-left"></div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-xs-6 detail_username text-left">请求人：<span></span></div>
-            <div class="col-xs-6 detail_createdat text-right">来信：<span></span></div>
+            <div class="col-xs-6 detail_username text-left x-label">咨询人：<span></span></div>
+            <div class="col-xs-6 detail_createdat text-right x-label"><span></span></div>
         </div>
         <div class="row">
-            <div class="col-xs-12 detail_replycontent text-left"></div>
+            <div class="col-xs-12">
+                <div class="pull-left x-label">回&emsp;复：</div>
+                <div class="detail_replycontent text-left"></div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-xs-6 detail_status text-left">状态：<span></span></div>
-            <div class="col-xs-6 detail_repliedat text-right"><span></span></div>
+            <div class="col-xs-6 detail_status text-left hidden"><span></span></div>
+            <div class="col-xs-12 detail_repliedat text-right x-label"><span></span></div>
         </div>
     </div>
 </div>

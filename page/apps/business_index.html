@@ -33,80 +33,85 @@
 </div>
    <div class="x-content"></div>
    <script type="text/javascript">
+   var _domain = '/';
   var jsonBsfw = [];
   var jsonFlfg = [];
 	$(document).ready(function() {
 		loadList();
 		bind();
-		loadURL($('#ywzx'), '../apps/consulting.html', '');
+        myClick();
 	});
 
 	function myClick() {
 		var bpage = getParams('bpage');
 		if (bpage == "bszn") {
-			$('#myTabs a:eq(0)').trigger('click');
+            $.ajax({
+                type : 'GET',
+                url : _domain + 'instruction/getList.do',
+                data: {
+                    type: 1
+                },
+                dataType : 'json',
+                success : function(data) {
+                    var hash = {};
+                    $.each(data.Rows, function(i, o) {
+                        if (hash[o.groupname] == null) {
+                            hash[o.groupname] = [];
+                        }
+                        hash[o.groupname].push({'title': o.title, 'id': o.id})
+                    })
+                    $.each(hash, function(key, value){
+                        var row = {};
+                        row['type'] = key;
+                        row['tab_id'] = key;
+                        row['list'] = value;
+                        jsonBsfw.push(row);
+                    })
+                    $('#myTabs a:eq(0)').trigger('click');
+                },
+                error:function (data){
+                    console.log('访问出错');
+                }
+            })
 		} else if (bpage == "flfg") {
-			$('#myTabs a:eq(1)').trigger('click');
-		}
+            $.ajax({
+                type : 'GET',
+                url : _domain + 'instruction/getList.do',
+                data: {
+                    type: 2
+                },
+                dataType : 'json',
+                success : function(data) {
+                    var hash = {};
+                    $.each(data.Rows, function(i, o) {
+                        if (hash[o.groupname] == null) {
+                            hash[o.groupname] = [];
+                        }
+                        hash[o.groupname].push({'title': o.title, 'id': o.id})
+                    })
+                    $.each(hash, function(key, value){
+                        var row = {};
+                        row['type'] = key;
+                        row['tab_id'] = key;
+                        row['list'] = value;
+                        jsonFlfg.push(row);
+                    })
+                    $('#myTabs a:eq(1)').trigger('click');
+                },
+                error:function (data){
+                    console.log('访问出错');
+                }
+            })
+		} else if (bpage == "ywzx") {
+            loadURL($('#ywzx'), '../apps/consulting.html', '');
+            $('#myTabs a:eq(2)').trigger('click');
+        }
 	}
 
 	function loadList(){
-	  $.ajax({
-	      type : 'GET',
-	      url : '/instruction/getList.do',
-	      data: {
-	      	type: 1
-	      },
-	      dataType : 'json',
-	      success : function(data) {
-	    	 var hash = {};
-	    	 $.each(data.Rows, function(i, o) {
-	    	 	if (hash[o.groupname] == null) {
-	    	 		hash[o.groupname] = [];
-	    	 	}
-	    	 	hash[o.groupname].push({'title': o.title, 'id': o.id})
-	    	 })
-	    	 $.each(hash, function(key, value){
-	    	 	var row = {};
-	    	 	row['type'] = key;
-	    	 	row['tab_id'] = key;
-	    	 	row['list'] = value;
-	    	 	jsonBsfw.push(row);
-	    	 })
-	    	 myClick();
-	      },
-	      error:function (data){
-	    	 console.log('访问出错');
-	      }
-	      })
 
-	      $.ajax({
-	      type : 'GET',
-	      url : '/instruction/getList.do',
-	      data: {
-	      	type: 2
-	      },
-	      dataType : 'json',
-	      success : function(data) {
-	    	 var hash = {};
-	    	 $.each(data.Rows, function(i, o) {
-	    	 	if (hash[o.groupname] == null) {
-	    	 		hash[o.groupname] = [];
-	    	 	}
-	    	 	hash[o.groupname].push({'title': o.title, 'id': o.id})
-	    	 })
-	    	 $.each(hash, function(key, value){
-	    	 	var row = {};
-	    	 	row['type'] = key;
-	    	 	row['tab_id'] = key;
-	    	 	row['list'] = value;
-	    	 	jsonFlfg.push(row);
-	    	 })
-	      },
-	      error:function (data){
-	    	 console.log('访问出错');
-	      }
-	      })
+
+
 	}
 
 	function bind() {
@@ -123,7 +128,7 @@
         generateTabList(key[type]);
     })
 
-    $.root.on('click', '.tab-pane.active li>a', function(e) {
+    $.root.on('click', '.tab-pane.active li.list-group-item>a', function(e) {
         var me = $(this);
         var target = me.data('target');
         var url = me.data('url');
@@ -138,11 +143,11 @@ function generateTab() {}
 function generateTabList(config) {
     var tabHtml = '';
     $.each(config.data, function(i, o) {
-        tabHtml += '<div class="panel panel-default">' +
-            '<div class="panel-heading" role="tab" id="' + o.tab_id + '">' +
+        tabHtml += '<div class="panel panel-default" style="margin:0;border:0;">' +
+            '<div class="panel-heading hidden" role="tab" id="' + o.tab_id + '">' +
             '<h4 class="panel-title">' +
-            '<a ' + (i == 0 ? '' : 'class="collapsed"') + ' role="button" data-parent="#' + config.type + 'list" data-toggle="collapse" href="#labels_' + o.tab_id + '" aria-expanded="' + (i == 0 ? 'true' : 'false') + '" aria-controls="labels_' + o.tab_id + '">' + o.type + '</a></h4></div>' +
-            '<div id="labels_' + o.tab_id + '" class="panel-collapse collapse ' + (i == 0 ? 'in' : '') + '" role="tabpanel" aria-labelledby="' + o.tab_id + '">' +
+            '<a ' + (i >= 0 ? '' : 'class="collapsed"') + ' role="button" data-parent="#' + config.type + 'list" data-toggle="collapse" href="#labels_' + o.tab_id + '" aria-expanded="' + (i == 0 ? 'true' : 'false') + '" aria-controls="labels_' + o.tab_id + '">' + o.type + '</a></h4></div>' +
+            '<div id="labels_' + o.tab_id + '" class="panel-collapse collapse ' + (i >= 0 ? 'in' : '') + '" role="tabpanel" aria-labelledby="' + o.tab_id + '">' +
             '<ul class="list-group">';
 
         $.each(o.list, function(i, n) {

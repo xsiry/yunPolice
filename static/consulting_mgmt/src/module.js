@@ -1,18 +1,21 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
-  var domain = "/didiweb/";
+  var _domain = "/didiweb/";
   module.exports = {
 
     init: function() {
       f_initGrid();
       this._configText();
       this._bindUI();
+      initCombo();
+      getAdmin();
     },
     _configText() {
       $('div h5.mgmt_title').text('咨询列表');
-      $('div button font.mgmt_new_btn').text('添加咨询');
-      $('div input.name_search').prop('placeholder', '输入咨询标题');
+      $('div button font.mgmt_new_btn_text').text('新建常见问题');
+      $('div button font.delivery_btn_text').text('发送');
+      $('div input.name_search').prop('placeholder', '请输入问题标题');
       $('div button.name_search_btn').text('搜索');
     },
     _bindUI: function() {
@@ -31,23 +34,30 @@ define(function(require, exports, module) {
         // bind .v_mnt_new_modal_btn
       $.root_.on("click", '.new_modal_btn', function(e) {
         var fun = function(dialogRef) {
-          initSummernote();
-          newModalValidation();
         }
-        newModal('添加咨询', fun);
+        newModal('','新建常见问题', fun);
       })
 
       $.root_.on("click", '.row_btn_preview', function(e) {
         var rowid = $(e.currentTarget).data('rowid');
         var row = manager.getRow(rowid);
-        var fun = function(dialogRef) {
-          $('.consulting_title h3').text(row.title);
-          $('.consulting_username').text(row.username);
-          $('.consulting_createdat').html(row.createdat);
-          $('.consulting_content').text(row.content);
-          $('.consulting_replycontent pre').text(row.replycontent);
+        if (row.status==3&&row.reviewed==1&&row.replycontent==null) {
+          var fun = function(dialogRef) {
+            $('.consulting_title pre').text(row.title);
+            $('.consulting_content pre').text(row.content);
+          }
+          newModal(row.id,'修改常见问题', fun);
+        }else {
+          var fun = function(dialogRef) {
+            $('.consulting_title pre').text(row.title);
+            $('.consulting_username').text(row.username);
+            $('.consulting_createdat').html(row.createdat? row.createdat.substring(0, row.createdat.length-2): '');
+            $('.consulting_content pre').text(row.content);
+            $('.consulting_replycontent pre').text(row.replycontent);
+            $('input[name="publicType"][value='+row.status+']').attr("checked",true);
+          }
+          previewModal(row.id, '问题回复', fun);
         }
-        previewModal(row.id, row.title, fun);
       })
 
       $.root_.on("click", '.row_btn_hide', function(e) {
@@ -63,7 +73,9 @@ define(function(require, exports, module) {
         var reviewed = $(e.currentTarget).data('reviewed');
         reviewedRow(id, name, reviewed);
       })
-
+      $.root_.on("click", '.delivery_btn', function(e) {
+        deliverySend();
+      })
     }
   };
 
@@ -78,11 +90,11 @@ define(function(require, exports, module) {
       onSelectRow: function(rowdata, rowindex) {
         $("#txtrowindex").val(rowindex);
       },
-      url: domain + 'gms_consulting/getList.do',
+      url: _domain + 'gms_consulting/getList.do',
       method: "get",
       parms: {
-    	  	u_phone : 'all',
-    	  	qtype: true
+    	  	qtype: 'all',
+          search_text: encodeURIComponent($('.name_search').val()),
       },
       dataAction: 'server',
       usePager: true,
@@ -99,17 +111,15 @@ define(function(require, exports, module) {
 	 * 搜索
 	 */
   function f_search() {
-    g.options.data = $.extend(true, {}, gridData);
-    g.loadData(f_getWhere());
-  };
-
-  function f_getWhere() {
-    if (!g) return null;
-    var clause = function(rowdata, rowindex) {
-      var key = $(".name_search").val();
-      return rowdata.tit.indexOf(key) > -1;
+    var gridparms = {
+      qtype: 'searchAll',
+      search_text: encodeURIComponent($('.name_search').val()),
+      page:1,
+      pagesize: g.options.pageSize,
+      sortname:'createdat',
+      sortorder:'DESC'
     };
-    return clause;
+    g.loadServerData(gridparms);
   };
 
   function hideRow(id, name, status, reply) {
@@ -124,7 +134,7 @@ define(function(require, exports, module) {
       $.ajax({
         type : 'POST',
         contentType : 'application/json',
-        url : domain + 'gms_consulting/update.do',
+        url : _domain + 'gms_consulting/update.do',
         data: JSON.stringify({
           id: id,
           status: (status?(reply?2:0):1)
@@ -178,7 +188,7 @@ define(function(require, exports, module) {
       $.ajax({
         type : 'POST',
         contentType : 'application/json',
-        url : domain + 'gms_consulting/update.do',
+        url : _domain + 'gms_consulting/update.do',
         data: JSON.stringify({
           id: id,
           reviewed: 1
@@ -219,6 +229,59 @@ define(function(require, exports, module) {
     })
   }
 
+  function newModal(id, title, onshowFun) {
+    var url = id == ''? 'save' : 'update';
+    var modal = BootstrapDialog.show({
+      id: 'newModal',
+      title: title,
+      size:  'size-wide',
+      message: $('<div></div>').load('apps/consulting_mgmt_public.html'),
+      cssClass: 'modal inmodal fade',
+      buttons: [{
+        icon: 'glyphicon glyphicon-check',
+        label: '提交',
+        cssClass: 'btn btn-primary',
+        autospin: false,
+        action: function(dialogRef) {
+          var parms = {
+                  title: $('#newModal .consulting_title pre').text(),
+                  content: $('#newModal .consulting_content pre').text(),
+                  replycontent: '',
+                  status: 3,
+                  reviewed: 1
+                }
+          if (id != '') parms['id'] = id;
+
+          $.ajax({
+            type : 'POST',
+            contentType : 'application/json',
+            url : _domain + 'gms_consulting/'+ url +'.do',
+            data: JSON.stringify(parms),
+            dataType : 'json',
+            success : function(data) {
+              if (data) {
+                $('#newModalClose').click();
+                g.loadData();
+              }
+            },
+            error : function(e) {
+              console.log(e)
+            }
+          })
+      }
+    }, {
+        id: 'newModalClose',
+        label: '关闭',
+        cssClass: 'btn btn-white',
+        autospin: false,
+        action: function(dialogRef) {
+          dialogRef.close();
+        }
+      }],
+      onshown: onshowFun
+    });
+  };
+
   function previewModal(id, title, onshowFun) {
     var modal = BootstrapDialog.show({
       id: 'previewModal',
@@ -228,19 +291,22 @@ define(function(require, exports, module) {
       cssClass: 'modal inmodal fade',
       buttons: [{
         icon: 'glyphicon glyphicon-check',
-        label: '回复',
+        label: '提交',
         cssClass: 'btn btn-primary',
         autospin: false,
         action: function(dialogRef) {
           $.ajax({
             type : 'POST',
             contentType : 'application/json',
-            url : domain + 'gms_consulting/update.do',
+            url : _domain + 'gms_consulting/update.do',
             data: JSON.stringify({
               id: id,
+              title: $('.consulting_title pre').text(),
+              content: $('.consulting_content pre').text(),
               replycontent: $('.consulting_replycontent pre').text(),
               repliedat: dateFactory('', new Date(), true),
-              status: 2
+              status: $('input[name="publicType"]:checked').val(),
+              reviewed: 1
             }),
             dataType : 'json',
             success : function(data) {
@@ -322,7 +388,7 @@ define(function(require, exports, module) {
         $.ajax({
           type : 'POST',
           contentType : 'application/json',
-          url : url,
+          url : _domain + url,
           dataType : 'json',
           data : JSON.stringify(formVals),
           success : function(data) {
@@ -335,10 +401,10 @@ define(function(require, exports, module) {
                 timeOut: 4000
             };
             if (data) {
-                msg = "广告业务操作成功！";
+                msg = "操作成功！";
                 toastr.success(msg);
             } else {
-                msg = "广告业务操作失败！";
+                msg = "操作失败！";
                 toastr.error(msg);
             };
 
@@ -350,6 +416,105 @@ define(function(require, exports, module) {
         });
       });
   };
+
+  function deliverySend() {
+    var job = $("select[name='jobs']").val();
+    var row = g.getSelectedRow();
+
+    if (!job) {
+      alert('请选择部门');
+      return;
+    }
+    if (!row) {
+      alert('请选择一个问题');
+      return;
+    }
+    $.ajax({
+      type : 'POST',
+      contentType : 'application/json',
+      url : _domain + "gms_consulting/update.do",
+      dataType : 'json',
+      data : JSON.stringify({
+        id: row.id,
+        job: job,
+        status: 1
+      }),
+      success : function(data) {
+        var msg = '';
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            showMethod: 'slideDown',
+            timeOut: 4000
+        };
+        if (data) {
+            msg = "操作成功！";
+            toastr.success(msg);
+            g.loadData();
+        } else {
+            msg = "操作失败！";
+            toastr.error(msg);
+        };
+      },
+      error : function(e) {
+          msg = "操作失败！";
+          toastr.error(msg);
+          console.log(e);
+      }
+    });
+  }
+
+  /*
+   * 初始化Combo
+   */
+  function initCombo(val) {
+    $.ajax({
+      type : 'GET',
+      contentType : 'application/json',
+      url : _domain + "x_sys_dic/getByCateGoryId.do",
+      dataType : 'json',
+      data : {
+        category_id: "Job"
+      },
+      success : function(data) {
+        var sels = '<option value></option>';
+
+        $.each(data.Rows, function(i, o) {
+          var selected = o.dicName == val ? 'selected': '';
+          sels += '<option value="'+ o.dicName +'" '+ selected +'>'+ o.dicName +'</option>';
+        })
+
+        $('.chosen-select').empty().append(sels);
+        $('.chosen-select').chosen({});
+      },
+      error : function(e) {
+          console.log(e);
+      }
+    });
+  };
+
+  /*
+   * 获取管理员信息
+   */
+  function getAdmin() {
+    $.ajax({
+      type : 'GET',
+      contentType : 'application/json',
+      url : _domain + "x_sys_dic/getLoginUser.do",
+      dataType : 'json',
+      success : function(data) {
+        if (data.data.roleName == "超级管理员") {
+          $('.x-tools>div').show();
+        }else {
+          $('.x-tools>div').hide();
+        }
+      },
+      error : function(e) {
+          console.log(e);
+      }
+    });
+  };
+
 
   function initSummernote() {
       $('.summernote').summernote({

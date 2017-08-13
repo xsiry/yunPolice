@@ -3,13 +3,13 @@ define([{
   name: 'title',
   minWidth: 100,
   isSort: false,
-  width: '25%'
-}, {
-  display: '类别',
-  name: 'category',
-  minWidth: 100,
-  isSort: false,
-  width: '10%'
+  width: '35%'
+// }, {
+//   display: '类别',
+//   name: 'category',
+//   minWidth: 100,
+//   isSort: false,
+//   width: '10%'
 }, {
   display: '作者',
   name: 'author',
@@ -23,13 +23,16 @@ define([{
   isSort: false,
   width: '20%'
 }, {
-    display: '发表时间',
-    name: 'times',
-    tyep: 'date',
-    isSort: false,
-    format: 'yyyy-mm-dd HH:mm:ss',
-    minWidth: 100,
-    width: '10%'
+  display: '发表时间',
+  name: 'times',
+  tyep: 'date',
+  isSort: false,
+  format: 'yyyy-mm-dd HH:mm:ss',
+  minWidth: 100,
+  width: '10%',
+  render: function(rowdata, rowindex, value) {
+    return value? value.substring(0, value.length-2): '';
+  }
 }, {
     display: '置顶',
     name: 'top',
