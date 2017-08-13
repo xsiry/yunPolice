@@ -12,7 +12,7 @@ define([{
   name: 'username',
   minWidth: 40,
   isSort: false,
-  width: '10%'
+  width: '5%'
 }, {
   display: '性别',
   name: 'sex',
@@ -68,7 +68,7 @@ define([{
   name: 'job',
   minWidth: 50,
   isSort: false,
-  width: '5%'
+  width: '10%'
 }, {
     display: '状态',
     name: 'status',
@@ -96,8 +96,8 @@ define([{
   render: function(rowdata, rowindex, value) {
     var h = "";
     // h += "<button type='button' data-id='" + rowdata.id + "' data-reviewed=" + (rowdata.reviewed==1?true:false) + " data-rowid='" + rowindex + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-primary btn-xs row-btn " + (rowdata.reviewed==1?"disabled":"") + " row_btn_reviewed'>"+ (rowdata.reviewed==0?'个人可见': '所有可见') +"</button> ";
-  h += "<button type='button' data-rowid='" + rowindex + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-info btn-xs row-btn row_btn_preview'>"+ (rowdata.job&&rowdata.status==4&&rowdata.reviewed==0&&$('.x-tools>div').css('display')!='none'? '审核':(rowdata.status==3&&rowdata.reviewed==1&&rowdata.username==null?'修改':(rowdata.replycontent?'修改':'回复'))) +"</button> ";
-    // h += "<button type='button' data-reply=" + (rowdata.replycontent?true:false) + " data-status=" + (rowdata.status == 1 ? true:false) + " data-id='" + rowdata.id + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-danger btn-xs row-btn row_btn_hide'>"+(rowdata.status == 1 ? '取消屏蔽':'屏蔽')+"</button> ";
+    h += "<button type='button' data-rowid='" + rowindex + "' data-name='" + rowdata.title + "' class='btn btn-outline btn-info btn-xs row-btn row_btn_preview'>"+ (rowdata.job&&rowdata.status==4&&rowdata.reviewed==0&&$('.x-tools>div').css('display')!='none'? '审核':(rowdata.status==3&&rowdata.reviewed==1&&rowdata.username==null?'修改':(rowdata.replycontent?'修改':'回复'))) +"</button> ";
+     h += $('.x-role').val()=='超级管理员'? "<button type='button'  data-id='" + rowdata.id + "' data-title='" + rowdata.title + "' class='btn btn-outline btn-danger btn-xs row-btn row_btn_del'>删除</button> " : "";
     return h;
   }
 }])

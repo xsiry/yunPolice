@@ -14,7 +14,7 @@ define(function(require, exports, module) {
     _configText() {
       $('div h5.mgmt_title').text('咨询列表');
       $('div button font.mgmt_new_btn_text').text('新建常见问题');
-      $('div button font.delivery_btn_text').text('发送');
+      $('div button font.delivery_btn_text').text('推送');
       $('div input.name_search').prop('placeholder', '请输入问题标题');
       $('div button.name_search_btn').text('搜索');
     },
@@ -40,8 +40,9 @@ define(function(require, exports, module) {
 
       $.root_.on("click", '.row_btn_preview', function(e) {
         var rowid = $(e.currentTarget).data('rowid');
+        var title = $(e.currentTarget).text();
         var row = manager.getRow(rowid);
-        if (row.status==3&&row.reviewed==1&&row.replycontent==null) {
+        if (row.status==3&&row.reviewed==1&&!row.replycontent&&!row.username) {
           var fun = function(dialogRef) {
             $('.consulting_title pre').text(row.title);
             $('.consulting_content pre').text(row.content);
@@ -49,6 +50,7 @@ define(function(require, exports, module) {
           newModal(row.id,'修改常见问题', fun);
         }else {
           var fun = function(dialogRef) {
+        	  if ($('.x-role').val()!="超级管理员") $('.x-role-prem').hide();
             $('.consulting_title pre').text(row.title);
             $('.consulting_username').text(row.username);
             $('.consulting_createdat').html(row.createdat? row.createdat.substring(0, row.createdat.length-2): '');
@@ -56,16 +58,14 @@ define(function(require, exports, module) {
             $('.consulting_replycontent pre').text(row.replycontent);
             $('input[name="publicType"][value='+row.status+']').attr("checked",true);
           }
-          previewModal(row.id, '问题回复', fun);
+          previewModal(row.id, '问题'+title, fun);
         }
       })
 
-      $.root_.on("click", '.row_btn_hide', function(e) {
+      $.root_.on("click", '.row_btn_del', function(e) {
         var id = $(e.currentTarget).data('id');
-        var name = $(e.currentTarget).data('name');
-        var status = $(e.currentTarget).data('status');
-        var reply = $(e.currentTarget).data('reply');
-        hideRow(id, name, status, reply);
+        var title = $(e.currentTarget).data('title');
+        delRow(id, title);
       })
       $.root_.on("click", '.row_btn_reviewed', function(e) {
         var id = $(e.currentTarget).data('id');
@@ -122,10 +122,10 @@ define(function(require, exports, module) {
     g.loadServerData(gridparms);
   };
 
-  function hideRow(id, name, status, reply) {
+  function delRow(id, title) {
     swal({
-      title: '确定'+ (status?'取消屏蔽':'屏蔽') + '?',
-      text: (status?'取消屏蔽':'屏蔽') + '后，咨询《' + name + '》将'+ (status?'':'不') + '在客户端展示！',
+      title: '确定删除?',
+      text: '删除后，咨询《' + title + '》将无法找回！',
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: '确定',
@@ -134,23 +134,19 @@ define(function(require, exports, module) {
       $.ajax({
         type : 'POST',
         contentType : 'application/json',
-        url : _domain + 'gms_consulting/update.do',
-        data: JSON.stringify({
-          id: id,
-          status: (status?(reply?2:0):1)
-        }),
+        url : _domain + 'gms_consulting/del/'+id+'.do',
         dataType : 'json',
         success : function(data) {
           if (data) {
             manager.reload();
             swal(
-              (status?'取消屏蔽':'屏蔽') + '成功:)',
-              '咨询《' + name + '》已'+(status?'取消':'被')+'屏蔽.',
+              '删除成功:)',
+              '咨询《' + title + '》已删除.',
               'success'
             )
           }else{
             swal(
-              (status?'取消屏蔽':'屏蔽') + '失败!',
+              '删除失败!',
               '未知错误，请联系管理员或查看日志',
               'error'
             )
@@ -158,7 +154,7 @@ define(function(require, exports, module) {
         },
         error : function(e) {
           swal(
-            (status?'取消屏蔽':'屏蔽') + '失败!',
+            '删除失败!',
             '未知错误，请联系管理员或查看日志',
             'error'
           )
@@ -426,7 +422,11 @@ define(function(require, exports, module) {
       return;
     }
     if (!row) {
-      alert('请选择一个问题');
+      alert('请选择一条记录');
+      return;
+    }
+    if (row.status==3&&row.reviewed==1&&!row.replycontent&&!row.username) {
+      alert('常见问题不能进行推送');
       return;
     }
     $.ajax({
@@ -471,17 +471,14 @@ define(function(require, exports, module) {
     $.ajax({
       type : 'GET',
       contentType : 'application/json',
-      url : _domain + "x_sys_dic/getByCateGoryId.do",
+      url : _domain + "x_sys_police/getList.do",
       dataType : 'json',
-      data : {
-        category_id: "Job"
-      },
       success : function(data) {
         var sels = '<option value></option>';
 
         $.each(data.Rows, function(i, o) {
-          var selected = o.dicName == val ? 'selected': '';
-          sels += '<option value="'+ o.dicName +'" '+ selected +'>'+ o.dicName +'</option>';
+          var selected = o.police == val ? 'selected': '';
+          sels += '<option value="'+ o.police +'" '+ selected +'>'+ o.police +'</option>';
         })
 
         $('.chosen-select').empty().append(sels);
@@ -503,10 +500,13 @@ define(function(require, exports, module) {
       url : _domain + "x_sys_dic/getLoginUser.do",
       dataType : 'json',
       success : function(data) {
+    	  	$('.x-role').val(data.data.roleName);
         if (data.data.roleName == "超级管理员") {
           $('.x-tools>div').show();
+          $('.row_btn_del').show();
         }else {
           $('.x-tools>div').hide();
+          $('.row_btn_del').hide();
         }
       },
       error : function(e) {

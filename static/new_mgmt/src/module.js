@@ -11,6 +11,7 @@ define(function(require, exports, module) {
     _configText() {
       $('div h5.mgmt_title').text('新闻列表');
       $('div button font.mgmt_new_btn').text('添加新闻');
+      $('div button font.mgmt_picture_btn').text('主页图片轮播设置');
       $('div input.name_search').prop('placeholder', '输入新闻标题');
       $('div button.name_search_btn').text('搜索');
     },
@@ -35,6 +36,35 @@ define(function(require, exports, module) {
         }
         newModal('添加新闻', fun);
       })
+      
+       $.root_.on("click", '.picture_modal_btn', function(e) {
+		   $.ajax({
+		      type : 'GET',
+		      contentType : 'application/json',
+		      url : '/topPicture/getPicture.do',
+		      dataType : 'json',
+		      data : {
+		        id: 1
+		      },
+		      success : function(responseText) {
+		        if (responseText.success) {
+		          var fun = function() {
+		         
+		            var imgs = [];
+		            imgs = responseText.data.url.split(';');
+		            $.each(imgs, function(i , url) {
+		              if (url != "") $('#newModalForm div.img_list_show').append('<img style="margin-right:10px;width: 100px;height: 100px;" src="' + url + '">');
+		            })
+		          }
+		          pictureModal('修改置顶图片', fun);
+		        }
+		      },
+		      error : function(e) {
+		        console.log(e);
+		      }
+		    });
+        
+      })
 
       $.root_.on("click", '.row_btn_preview', function(e) {
         var rowid = $(e.currentTarget).data('rowid');
@@ -55,12 +85,15 @@ define(function(require, exports, module) {
 
 
       $('body').on("click", '.upload_new_imgs', function(e) {
+    	var count = $(e.currentTarget).data('count');
+    	console.log(count)
+    	if (!count) count = 1;
         new BootstrapDialog({
           title: '文件上传',
           type: 'upload_img',
           size: 'size-wide',
           closeByBackdrop: false,
-          message: $('<div class="img_upload" data-url="system/fileupload.do" data-mincount=1 data-maxcount=1 data-types="image, flash" data-async=false></div>')
+          message: $('<div class="img_upload" data-url="system/fileupload.do" data-mincount=1 data-maxcount='+ count +' data-types="image" data-async=false></div>')
             .load('apps/upload_file.html'),
           onshow: function(dialogRef) {
             if($('.modal-backdrop').length > 1) {$('.modal-backdrop').last().remove()};
@@ -319,6 +352,69 @@ define(function(require, exports, module) {
       onshown: onshowFun
     });
   };
+  
+  function pictureModal(title, onshowFun) {
+	    var modal = BootstrapDialog.show({
+	      id: 'newModal',
+	      title: title,
+	      size: 'size-wide',
+	      message: $('<div></div>').load('apps/picture_mgmt_modal.html'),
+	      cssClass: 'modal inmodal fade',
+	      buttons: [{
+	        type: 'submit',
+	        icon: 'glyphicon glyphicon-check',
+	        label: '修改',
+	        cssClass: 'btn btn-primary',
+	        autospin: false,
+	        action: function(dialogRef) {
+	        	var path = $('input[name="imgs"]').val();
+	        	$.ajax({
+	                type : 'POST',
+	                contentType : 'application/json',
+	                url : "/topPicture/updatePicture.do",
+	                dataType : 'json',
+	                data: JSON.stringify({
+	                	id:1,
+	                	url: path
+	                }),
+	                success : function(data) {
+	                	$('#newModalClose').click();
+	                    if (data) {
+	                        swal(
+	                            '置顶状态修改成功:)',
+	                            '修改成功',
+	                            'success'
+	                        )
+	                    }else{
+	                        swal(
+	                            '置顶状态修改失败!',
+	                            '修改失败!',
+	                            'error'
+	                        )
+	                    }
+	                },
+	                error : function(e) {
+	                	$('#newModalClose').click();
+	                    swal(
+	                        '置顶状态修改失败!',
+	                        '未知错误，请联系管理员或查看日志',
+	                        'error'
+	                    )
+	                }
+	            });
+	        }
+	      }, {
+	        id: 'newModalClose',
+	        label: '取消',
+	        cssClass: 'btn btn-white',
+	        autospin: false,
+	        action: function(dialogRef) {
+	          dialogRef.close();
+	        }
+	      }],
+	      onshown: onshowFun
+	    });
+	  };
 
   function previewModal(title, onshowFun) {
     var modal = BootstrapDialog.show({
