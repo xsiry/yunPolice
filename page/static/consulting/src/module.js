@@ -62,6 +62,7 @@ define(function(require, exports, module) {
             $.root_.off('click', '.wtzx_tabs a').on('click', '.wtzx_tabs a', function(e) {
                 var qtype = $(e.currentTarget).data("qtype");
                 _qtype = qtype;
+                $('.list_content section').prop('id', 'list_'+ _qtype);
                 reload();
             })
             $.root_.off('click', '.search_btn').on('click', '.search_btn', function(e) {
@@ -182,35 +183,31 @@ define(function(require, exports, module) {
                                             }
                                             for (var i = 0; i < list.length; i++) {
                                                 var obj = list[i];
+                                                var number = obj.pageviews?parseInt(obj.pageviews):0;
+                                                
                                                 result += '<div class="content-block x-zx-row">' +
                                                     '<a href="javascript:void(0);" data-id=' +
                                                     obj.id +
                                                     ' class="x-row-blocks">' +
                                                     '<div class="row">' +
-                                                    '<div class="col-xs-9 text-left"><span>' +
+                                                    '<div class="col-xs-12 text-left"><span>' +
                                                     (obj.title.length > 30?(obj.title.substring(0, 30)+'...'): obj.title) +
                                                     '</span></div>' +
-                                                    '<div class="col-xs-3 text-right"><span>浏览量：<span class="x-cons-pv">' +
-                                                    obj.pageviews +
-                                                    '</span></span></div>' +
+                                                    // '</div><div class="row">' +
+                                                    // '<div class="col-xs-12 text-left"><span>' +
+                                                    // (_qtype=='me'?('咨询人：' +obj.username.substring(0,1) +(obj.sex == 0 ? '先生' :'女士')):'') +
+                                                    // '</span></div>' +
                                                     '</div><div class="row">' +
-                                                    '<div class="col-xs-12 text-left"><span>' +
-                                                    (_qtype=='me'?('咨询人：' +obj.username.substring(0,1) +(obj.sex == 0 ? '先生' :'女士')):'') +
-                                                    '</span></div>' +
-                                                    '</div><div class="row">' +
-                                                    '<div class="col-xs-12 text-left"><span>' +
-                                                    (_qtype=='me'&&obj.createdat ? ('来&emsp;信：'+ obj.createdat.substring(0, obj.createdat.length-5)) :'') +
-                                                    '</span></div>' +
-                                                    '</div><div class="row">' +
-                                                    '<div class="col-xs-8 text-left"><span>' +
-                                                    (_qtype=='me'&&obj.repliedat&&obj.reviewed==1 ? ('回&emsp;复：' + obj.repliedat.substring(0, obj.createdat.length-5)) : '') +
-                                                    '</span></div>' +
-                                                    '<div class="col-xs-4 text-right"><span>' +
-                                                    (_qtype=='me'? ('状态：' + statusKey[obj.status]):'') +
-                                                    '</span></div>' +
+                                                    (_qtype=='me'&&obj.createdat ? ('<div class="col-xs-8 text-left"><span>来&emsp;信：'+ obj.createdat.substring(0, obj.createdat.length-5)+'</span></div>') :'') +
+                                                    // '</span></div>' +
+                                                    // '</div><div class="row">' +
+                                                    // '<div class="col-xs-8 text-left"><span>' +
+                                                    // (_qtype=='me'&&obj.repliedat&&obj.reviewed==1 ? ('回&emsp;复：' + obj.repliedat.substring(0, obj.createdat.length-5)) : '') +
+                                                    (_qtype=='me'? (' <div class="col-xs-4 text-right"><span> 状态：' + statusKey[obj.status] +'</span></div>'):'') +
+                                                    (_qtype=='public'?('<div class="col-xs-12"><div class="pull-right" style="width: 90px;"><span>浏览量:<span class="x-cons-pv">' + (number>999?'999+':number) +'</span></span></div></div>'):'')+
                                                     '</div></a></div>';
                                             }
-                                            $('.list_content_panel').append(result);
+                                            $('#list_'+ _qtype).append(result);
                                             tabLenght++;
                                             me.resetload();
                                         }, 200);

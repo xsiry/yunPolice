@@ -22,7 +22,7 @@ body {
 }
 
 .content-block {
-	padding: 10px;
+	padding: 5px 10px;
 	border-bottom: 1px solid #d8d8d8;
 }
 
@@ -42,7 +42,7 @@ a.x-row-blocks {
 }
 
 .x-zx-row {
-  min-height: 100px;
+  min-height: 52px;
 }
 
 .x-menus #myTabContent>div>div {
