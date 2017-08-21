@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var domain = "/";
+  var domain = "/didiweb/";
   var _tabLoadEnd = false;
   var _dropLoad;
   module.exports = {
@@ -94,7 +94,7 @@ define(function(require, exports, module) {
                         + '<a href="javascript:void(0);" data-newsid='+ obj.id +' class="new_detail">'
                         + '<div class="' + (imgurl ? 'show' : '') + '"><img src="'+ imgurl +'" width="100%" height="100%"></div>'
                         + '<div>'
-                        + '<p>' + (obj.title.length > 18?(obj.title.substring(0,18)+'...'): obj.title) + '</p>'
+                        + '<div class="new_title">' + obj.title + '</div>'
                         + '<span>'+ obj.times.substring(5,10) //+' | <span>' + (obj.category || '其他') + '</span></span>'
                         + '</div></a></div>'
                 }

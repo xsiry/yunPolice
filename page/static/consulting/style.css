@@ -42,7 +42,7 @@ a.x-row-blocks {
 }
 
 .x-zx-row {
-  min-height: 52px;
+  /* min-height: 30px; */
 }
 
 .x-menus #myTabContent>div>div {
