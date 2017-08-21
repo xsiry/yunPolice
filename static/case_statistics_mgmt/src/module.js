@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('div.ibox-content');
   var manager, g;
-  var domain = "/didiweb/";
+  var domain = "/";
   module.exports = {
 
     init: function() {
