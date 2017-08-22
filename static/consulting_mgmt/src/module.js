@@ -471,14 +471,15 @@ define(function(require, exports, module) {
     $.ajax({
       type : 'GET',
       contentType : 'application/json',
-      url : _domain + "x_sys_police/getList.do",
+      url : _domain + "x_sys_company/getList.do",
       dataType : 'json',
       success : function(data) {
         var sels = '<option value></option>';
 
         $.each(data.Rows, function(i, o) {
-          var selected = o.police == val ? 'selected': '';
-          sels += '<option value="'+ o.police +'" '+ selected +'>'+ o.police +'</option>';
+        	  var name  = o.companyInsideName? o.companyInsideName : o.companyName;
+          var selected = name == val ? 'selected': '';
+          sels += '<option value="'+ name +'" '+ selected +'>'+ name +'</option>';
         })
 
         $('.chosen-select').empty().append(sels);

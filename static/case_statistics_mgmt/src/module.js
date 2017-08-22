@@ -138,7 +138,7 @@ define(function(require, exports, module) {
     var month = dateTime.getMonth() + 1;
     // 获取当前日
     var date = dateTime.getDate();
-    var now = [year, p(month), p(date)].join('-') + " " + (bool ? "00:00" : "23:59");
+    var now = [year, p(month), (bool? '01':p(date))].join('-') + " " + (bool ? "00:00" : "23:59");
     return now;
   }
 

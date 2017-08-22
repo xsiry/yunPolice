@@ -144,7 +144,7 @@ define(function(require, exports, module) {
                         contentType: 'application/json',
                         data: {
                             page: $(".page_no").val(),
-                            pagesize: 3,
+                            pagesize: 8,
                             qtype: _qtype,
                             u_phone: _tel,
                             search_text: encodeURIComponent($('#x-search').val()),

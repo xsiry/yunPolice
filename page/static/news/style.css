@@ -73,6 +73,7 @@ section>div>a>div .new_title {
   -webkit-line-clamp: 2;
   overflow: hidden;
   height: 3.6rem;
+  text-align: left;
 }
 
 section>div>a>div>span {
