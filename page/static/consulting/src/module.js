@@ -63,6 +63,7 @@ define(function(require, exports, module) {
                 var qtype = $(e.currentTarget).data("qtype");
                 _qtype = qtype;
                 $('.list_content section').prop('id', 'list_' + _qtype);
+                $('.page_no').prop('id', 'page_no_' + _qtype);
                 reload();
             })
             $.root_.off('click', '.search_btn').on('click', '.search_btn', function(e) {
@@ -99,7 +100,8 @@ define(function(require, exports, module) {
             })
         },
         _loadContent: function() {
-            $('.list_content section').prop('id', 'list_' + "public");
+            $('.list_content section').prop('id', 'list_' + _qtype);
+            $('.page_no').prop('id', 'page_no_' + _qtype);
             load();
         }
     }
@@ -107,8 +109,9 @@ define(function(require, exports, module) {
     function reload() {
         _tabLoadEnd = false;
         if (_dropLoad != null) {
-            $(".page_no").val(1);
+            $('#page_no_' + _qtype).val(1);
             $('.list_content section').empty();
+            _dropLoad.resetload();
             _dropLoad.unlock();
             _dropLoad.noData(false);
             _dropLoad.resetload();
@@ -143,7 +146,7 @@ define(function(require, exports, module) {
                         dataType: 'json',
                         contentType: 'application/json',
                         data: {
-                            page: $(".page_no").val(),
+                            page: $('#page_no_' + _qtype).val(),
                             pagesize: 8,
                             qtype: _qtype,
                             u_phone: _tel,
@@ -158,7 +161,7 @@ define(function(require, exports, module) {
                                 var list = data.Rows;
                                 var lqtype = data.qtype;
                                 if (list == null) {
-                                    $(".page_no").val(parseInt($(".page_no").val()) - 1);
+                                    $('#page_no_' + lqtype).val(parseInt($('#page_no_' + lqtype).val()) - 1);
                                 };
                                 if (list && list.length == 0) {
                                     _tabLoadEnd = true;
@@ -204,17 +207,17 @@ define(function(require, exports, module) {
                                         '</div></a></div>';
                                 }
                                 $('#list_' + lqtype).append(result);
-                                $(".page_no").val(parseInt($(".page_no").val()) + 1);
+                                $('#page_no_' + lqtype).val(parseInt($('#page_no_' + lqtype).val()) + 1);
                                 me.resetload();
                             } else {
                                 loading = true;
-                                $(".page_no").val(parseInt($(".page_no").val()) - 1);
+                                $('#page_no_' + lqtype).val(parseInt($('#page_no_' + lqtype).val()) - 1);
                                 alert("查询数据出错啦，请刷新再试");
                             }
                         },
                         error: function() {
                             loading = true;
-                            $(".page_no").val(parseInt($(".page_no").val()) - 1);
+                            $('#page_no_' + lqtype).val(parseInt($('#page_no_' + lqtype).val()) - 1);
                             alert("查询数据出错啦，请刷新再试");
                         }
                     });
