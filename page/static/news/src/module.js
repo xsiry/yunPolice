@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var domain = "/didiweb/";
+  var domain = "/";
   var _tabLoadEnd = false;
   var _dropLoad;
   module.exports = {

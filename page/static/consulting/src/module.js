@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     $.root_ = $('body');
-    var _domain = "/didiweb/";
+    var _domain = "/";
     var _tel = getParams('TEL');
     var _name = getParams('NAME');
     var _sex = getParams('SEX');
@@ -175,7 +175,7 @@ define(function(require, exports, module) {
                                 }
                                 var result = '';
                                 var statusKey = {
-                                    0: "已提交",
+                                    0: "处理中",
                                     1: "处理中",
                                     2: "已回复",
                                     3: "已回复",
