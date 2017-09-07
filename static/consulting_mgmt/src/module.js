@@ -50,7 +50,7 @@ define(function(require, exports, module) {
           newModal(row.id,'修改常见问题', fun);
         }else {
           var fun = function(dialogRef) {
-        	  if ($('.x-role').val()!="超级管理员") $('.x-role-prem').hide();
+        	  if ($('.x-role').val()!="9") $('.x-role-prem').hide();
             $('.consulting_title pre').text(row.title);
             $('.consulting_username').text(row.username);
             $('.consulting_createdat').html(row.createdat? row.createdat.substring(0, row.createdat.length-2): '');
@@ -501,8 +501,8 @@ define(function(require, exports, module) {
       url : _domain + "x_sys_dic/getLoginUser.do",
       dataType : 'json',
       success : function(data) {
-    	  	$('.x-role').val(data.data.roleName);
-        if (data.data.roleName == "超级管理员") {
+    	  	$('.x-role').val(data.data.roleType);
+        if (data.data.roleType == "9") {
           $('.x-tools>div').show();
           $('.row_btn_del').show();
         }else {
