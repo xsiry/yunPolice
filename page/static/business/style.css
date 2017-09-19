@@ -95,6 +95,8 @@ body {
 .table_container, .content_container {
     padding-right: 0;
     padding-left: 0;
+    overflow-x: hidden;
+    padding: 5px;
 }
 
 
